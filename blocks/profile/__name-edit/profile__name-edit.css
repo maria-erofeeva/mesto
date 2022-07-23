@@ -1,3 +1,22 @@
 .profile__name-edit {
     margin-left: 18px;
+    background-image: url(../../../images/edit-button.svg);
+    background-repeat: no-repeat;
+    width: 24px;
+    height: 24px;
+    background-color: transparent;
+    border: 0;
+    padding: 0;
+    align-self: center;
+    transition: 0.5s;
+}
+
+@media screen and (max-width: 425px) {
+    .profile__name-edit {
+        margin-left: 10px;
+    }
+}
+
+.profile__name-edit:hover {
+    background-image: url(../../../images/edit-button-hover.svg);
 }
