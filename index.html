@@ -1,28 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Mesto Russia</title>
     <link rel="stylesheet" href="pages/index.css" />
-  </head>
+</head>
 
-  <body class="page">
+<body class="page">
     <header class="header">
-      <div class="header__logo">
-        <h1 class="header__logo-first-part">Mesto</h1>
-        <p class="header__logo-second-part">Russia</p>
-      </div>
+        <img src="images/vector.png" alt="Логотип Место.Россия" class="header__logo" />
     </header>
 
-    <main class="main">
-      <section class="heading"></section>
-      <section class="gallery"></section>
-    </main>
+    <section class="profile">
+        <img src="images/jacqueevegusto.jpg" alt="Жак-Ив Кусто" class="profile__image" />
+        <div class="profile__description">
+            <div class="profile__name">
+                <p class="profile__current-name">Жак-Ив Кусто</p>
+                <button class="profile__name-edit"></button>
+            </div>
+            <p class="profile__status">Исследователь океана</p>
+        </div>
+        <button class="profile__add-photo-button"></button>
+    </section>
+
+    <section class="gallery">
+        <div class="gallery__card">
+            <img src="images/baikal.jpg" alt="Фото Байкала" class="gallery__image" />
+            <div class="gallery__card-text">
+                <p class="gallery__card-title"></p>
+                <button class="gallery_like-button"></button>
+            </div>
+        </div>
+        <!--<div class="gallery__card">
+            <img src="images/arkhangelsk.jpg" alt="Фото Архангельска" class="gallery__image" />
+        </div>
+        <div class="gallery__card">
+            <img src="images/elbrus.jpg" alt="Фото Эльбруса" class="gallery__image" />
+        </div>
+        <div class="gallery__card">
+            <img src="images/kalyazin.jpg" alt="Фото Калязинской колокольни" class="gallery__image" />
+        </div>
+        <div class="gallery__card">
+            <img src="images/karachaevsk.jpg" alt="Фото Карачаевска" class="gallery__image" />
+        </div>
+        <div class="gallery__card">
+            <img src="images/karelia.jpg" alt="Фото Карелии" class="gallery__image" />
+        </div>-->
+    </section>
 
     <footer class="footer"></footer>
 
     <script src="script.js"></script>
-  </body>
+</body>
+
 </html>
