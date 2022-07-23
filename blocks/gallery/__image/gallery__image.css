@@ -1,0 +1,10 @@
+.gallery__image {
+  max-width: 100%;
+  object-fit: cover;
+  width: 100%;
+  height: 78.116343%;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  border-radius: 9px 9px 0 0;
+} 

@@ -1,0 +1,9 @@
+.gallery__card { 
+    max-width: 282px;
+    border-radius: 9px;
+    max-height: 361px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
