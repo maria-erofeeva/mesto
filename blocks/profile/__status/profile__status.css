@@ -5,6 +5,12 @@
     margin: 0;
 }
 
+@media screen and (max-width: 768px) {
+    .profile__status {
+        font-size: 2.4vw;
+    } 
+}
+
 @media screen and (max-width: 425px) {
     .profile__status {
         font-size: 14px;
