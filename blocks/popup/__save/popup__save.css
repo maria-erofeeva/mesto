@@ -1,0 +1,13 @@
+.popup__save {
+  background-image: url(../../../images/save-button.svg);
+  background-repeat: no-repeat;
+  border: 0;
+  background-color: transparent;
+  width: 358px;
+  height: 50px;
+  transition: 0.8s;
+}
+
+.popup__save:hover {
+  background-image: url(../../../images/save-button-hover.svg);
+}

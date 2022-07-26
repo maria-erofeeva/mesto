@@ -1,11 +1,11 @@
 .gallery__card-title {
-    color: black;
-    font-size: 24px;
-    font-weight: 900;
-    margin: 0;
-    padding-left: 21px;
-    align-self: center;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
+  color: black;
+  font-size: 24px;
+  font-weight: 900;
+  margin: 0;
+  padding-left: 21px;
+  align-self: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }

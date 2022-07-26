@@ -1,12 +1,12 @@
 .footer__text {
-    color: #545454;
-    font-size: 18px;
-    padding: 0;
-    margin: 0;
+  color: #545454;
+  font-size: 18px;
+  padding: 0;
+  margin: 0;
 }
 
 @media screen and (max-width: 425px) {
-    .footer__text {
-      font-size: 14px;
-    }
+  .footer__text {
+    font-size: 14px;
   }
+}

@@ -1,15 +1,15 @@
 .gallery__like-button {
-    align-self: center;
-    background-image: url(../../../images/like-button.svg);
-    width: 22px;
-    height: 19px;
-    border: 0;
-    background-color: transparent;
-    padding-right: 30px;
-    background-repeat: no-repeat;
-    transition: 0.5s;
+  align-self: center;
+  background-image: url(../../../images/like-button.svg);
+  width: 22px;
+  height: 19px;
+  border: 0;
+  background-color: transparent;
+  padding-right: 30px;
+  background-repeat: no-repeat;
+  transition: 0.5s;
 }
 
 .gallery__like-button:hover {
-    background-image: url(../../../images/like-hover.svg);
+  background-image: url(../../../images/like-hover.svg);
 }

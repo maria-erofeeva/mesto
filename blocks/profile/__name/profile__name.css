@@ -1,10 +1,10 @@
 .profile__name {
-    display: flex;
-    margin-bottom: 16px;
+  display: flex;
+  margin-bottom: 16px;
 }
 
 @media screen and (max-width: 425px) {
-    .profile__name {
-        margin-bottom: 14px;
-    }
+  .profile__name {
+    margin-bottom: 14px;
+  }
 }

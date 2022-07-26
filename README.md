@@ -1,17 +1,11 @@
-# Проект: Место
+# Project: Mesto
 
-### Обзор
+A principle of operation of the profect is based on adding photos at your page. You can mention your name and something about ypurself at the header. The main part is the gallery with photos. 
 
-* Figma
-* Картинки
+The page contains 5 blocks. Starts with header, then profile block with pop-up, gallery and footer.
 
-**Figma**
+------ 
+**Used:** HTML, CSS, JavaScript.
 
-* [Ссылка на макет в Figma](https://www.figma.com/file/2cn9N9jSkmxD84oJik7xL7/JavaScript.-Sprint-4?node-id=0%3A1)
-
-**Картинки**
-
-Доставать картинки предстоит из Фигмы. Это расхожая практика, поэтому полезно потренироваться.
-Не забудьте [оптимизировать картинки](https://tinypng.com/), чтобы ваш сайт загружался быстрее.
-
-Удачи!
+------ 
+Project link – https://maria-erofeeva.github.io/mesto/index.html
