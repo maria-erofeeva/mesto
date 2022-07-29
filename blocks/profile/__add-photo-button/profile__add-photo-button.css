@@ -1,25 +1,29 @@
 .profile__add-photo-button {
   margin-left: auto;
   justify-self: flex-end;
-  background-image: url(../../../images/add-button.svg);
+  background-image: url(../../../images/add-symbol.svg);
   background-repeat: no-repeat;
   width: 150px;
-  height: 50px;
+  background-size: 22px;
   background-color: transparent;
-  border: 0;
+  border-color: white;
+  border-radius: 2px;
+  border-width: 2px;
   padding: 0;
-  background-size: contain;
   transition: 0.5s;
+  cursor: pointer;
+  height: 50px;
+  background-position: center;
 }
 
 @media screen and (max-width: 425px) {
   .profile__add-photo-button {
-    background-image: url(../../../images/add-button425.svg);
     width: 100%;
-    background-position: center;
+    height: 16vw;
+    background-size: 16px;
   }
 }
 
 .profile__add-photo-button:hover {
-  background-image: url(../../../images/add-button-hover.svg);
+  opacity: 0.5;
 }

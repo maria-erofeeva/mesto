@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Mesto Russia</title>
+    <title>Место. Россия</title>
     <link rel="stylesheet" href="pages/index.css" />
 </head>
 
@@ -14,62 +14,64 @@
         <img src="images/logo.svg" alt="Логотип Место.Россия" class="header__logo" />
     </header>
 
+    <main class="main">
     <section class="profile">
         <img src="images/jacqueevegusto.jpg" alt="Фотография пользователя" class="profile__image" />
         <div class="profile__description">
             <div class="profile__name">
-                <p class="profile__current-name">Жак-Ив Кусто</p>
-                <button class="profile__name-edit" type="submit"></button>
+                <h1 class="profile__current-name">Жак-Ив Кусто</h1>
+                <button class="profile__name-edit" type="button" aria-label="Edit"></button>
             </div>
             <p class="profile__status">Исследователь океана</p>
         </div>
-        <button class="profile__add-photo-button"></button>
+        <button class="profile__add-photo-button" aria-label="Add Photo" type="submit"></button>
     </section>
 
     <section class="gallery">
         <div class="gallery__card">
             <img src="images/baikal-min.jpg" alt="Фото Байкала" class="gallery__image" />
             <div class="gallery__card-text">
-                <p class="gallery__card-title">Байкал</p>
-                <button class="gallery__like-button" type="submit"></button>
+                <h2 class="gallery__card-title">Байкал</h2>
+                <button class="gallery__like-button" type="button" aria-label="Like"></button>
             </div>
         </div>
         <div class="gallery__card">
             <img src="images/arkhangelsk-min.jpg" alt="Фото Архангельска" class="gallery__image" />
             <div class="gallery__card-text">
-                <p class="gallery__card-title">Архангельск</p>
-                <button class="gallery__like-button"></button>
+                <h2 class="gallery__card-title">Архангельск</h2>
+                <button class="gallery__like-button" type="button" aria-label="Like"></button>
             </div>
         </div>
         <div class="gallery__card">
             <img src="images/elbrus-min.jpg" alt="Фото Эльбруса" class="gallery__image" />
             <div class="gallery__card-text">
-                <p class="gallery__card-title">Эльбрус</p>
-                <button class="gallery__like-button" type="submit"></button>
+                <h2 class="gallery__card-title">Эльбрус</h2>
+                <button class="gallery__like-button" type="button" aria-label="Like"></button>
             </div>
         </div>
         <div class="gallery__card">
             <img src="images/kalyazin-min.jpg" alt="Фото Калязинской колокольни" class="gallery__image" />
             <div class="gallery__card-text">
-                <p class="gallery__card-title">Калязинская колокольня</p>
-                <button class="gallery__like-button" type="submit"></button>
+                <h2 class="gallery__card-title">Калязинская колокольня</h2>
+                <button class="gallery__like-button" type="button" aria-label="Like"></button>
             </div>
         </div>
         <div class="gallery__card">
             <img src="images/karachaevsk-min.jpg" alt="Фото Карачаевска" class="gallery__image" />
             <div class="gallery__card-text">
-                <p class="gallery__card-title">Карачаевск</p>
-                <button class="gallery__like-button" type="submit"></button>
+                <h2 class="gallery__card-title">Карачаевск</h2>
+                <button class="gallery__like-button" type="button" aria-label="Like"></button>
             </div>
         </div>
         <div class="gallery__card">
             <img src="images/karelia-min.jpg" alt="Фото Карелии" class="gallery__image" />
             <div class="gallery__card-text">
-                <p class="gallery__card-title">Карелия</p>
-                <button class="gallery__like-button" type="submit"></button>
+                <h2 class="gallery__card-title">Карелия</h2>
+                <button class="gallery__like-button" type="button" aria-label="Like"></button>
             </div>
         </div>
     </section>
+    </main>
 
     <footer class="footer">
         <p class="footer__text">&copy; 2020 Mesto Russia</p>
@@ -77,19 +79,17 @@
 
     <div class="popup" id="popup">
         <div class="popup__container">
-            <div class="popup__content">
                 <h2 class="popup__title">Редактировать профиль</h2>
-                <form class="popup__form">
-                    <input type="text" name="name" id="name" value="Жак-Ив Кусто" />
-                    <input type="text" name="description" id="description" value="Исследователь океана" />
-                    <button class="popup__save" type="submit" onclick="formSubmitHandler(evt)"></button>
+                <form class="popup__form" name="edit-profile">
+                    <input type="text" name="name" id="name" value="Жак-Ив Кусто" class="popup__form_input popup__form_input_name"/>
+                    <input type="text" name="description" id="description" value="Исследователь океана" class="popup__form_input popup__form_input_description"/>
                 </form>
-            </div>
-            <button class="popup__close-icon" type="submit"></button>
+                <button class="popup__save" type="submit" aria-label="Save">Сохранить</button>
+            <button class="popup__close-icon" type="button" aria-label="Close"></button>
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <script src="scripts/index.js"></script>
 </body>
 
 </html>

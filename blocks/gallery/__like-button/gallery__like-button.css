@@ -8,8 +8,9 @@
   padding-right: 30px;
   background-repeat: no-repeat;
   transition: 0.5s;
+  cursor: pointer;
 }
 
 .gallery__like-button:hover {
-  background-image: url(../../../images/like-hover.svg);
+  opacity: 0.5;
 }

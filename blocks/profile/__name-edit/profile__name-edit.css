@@ -1,22 +1,29 @@
 .profile__name-edit {
   margin-left: 18px;
-  background-image: url(../../../images/edit-button.svg);
+  background-image: url(../../../images/name-edin-symbol.svg);
   background-repeat: no-repeat;
   width: 24px;
   height: 24px;
   background-color: transparent;
-  border: 0;
+  border-color: white;
+  border-width: 1px;
   padding: 0;
   align-self: center;
   transition: 0.5s;
+  cursor: pointer;
+  background-position: center;
+  background-size: 10px;
 }
 
 @media screen and (max-width: 425px) {
   .profile__name-edit {
     margin-left: 10px;
+    height: 18px;
+    width: 18px;
+    background-size: 7.5px;
   }
 }
 
 .profile__name-edit:hover {
-  background-image: url(../../../images/edit-button-hover.svg);
+  opacity: 0.5;
 }

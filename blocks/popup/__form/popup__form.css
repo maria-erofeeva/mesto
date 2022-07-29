@@ -1,18 +1,9 @@
-.popup__form [type="text"] {
-  font-size: 14px;
-  line-height: auto;
-  font-weight: 400;
-  display: block;
-  border: none;
-  border-bottom-width: 1px;
-  border-bottom-style: solid;
-  border-bottom-color: #545454;
-  width: 100%;
-  padding: 0;
-  height: 27px;
-  margin-bottom: 30px;
-}
+.popup__form {
+    margin-bottom: 48px;
+  }
 
-.popup__form [type="text"]:last-of-type {
-  margin-bottom: 48px;
-}
+@media screen and (max-width: 425px) {
+    .popup__form {
+      margin-bottom: 45px;
+    }
+  }

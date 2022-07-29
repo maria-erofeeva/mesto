@@ -3,7 +3,6 @@
   margin: 0 auto 50px;
   width: 100%;
   align-items: center;
-  height: 120px;
   box-sizing: border-box;
 }
 
@@ -16,8 +15,8 @@
 @media screen and (max-width: 425px) {
   .profile {
     margin: 0 auto 36px auto;
-    min-height: 286px;
     padding: 0 19px;
     flex-direction: column;
+    max-height: 286px;
   }
 }

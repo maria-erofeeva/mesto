@@ -15,7 +15,6 @@
 
 @media screen and (max-width: 768px) {
   .gallery {
-    padding: 0 10px;
     column-gap: 10px;
     grid-template-columns: repeat(2, minmax(5em, 1fr));
     grid-template-rows: repeat(3, 1fr);

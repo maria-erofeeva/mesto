@@ -2,9 +2,24 @@
   background-color: white;
   margin: 0;
   width: 430px;
-  height: 330px;
   border-radius: 9px;
-  position: fixed;
-  left: calc(50% - 215px);
-  top: calc(50% - 165px);
+  align-self: center;
+  position: relative;
+  padding: 34px 36px 37px;
+  box-sizing: border-box;
+  height: 330px;
+}
+
+@media screen and (max-width: 450px) {
+  .popup__container {
+    width: 415px;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .popup__container {
+    width: 282px;
+    height: 322px;
+    padding: 25px 22px;
+  }
 }
