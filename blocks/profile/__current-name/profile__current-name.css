@@ -15,25 +15,13 @@
   }
 }
 
-@media screen and (max-width: 700px) {
-  .profile__current-name {
-    max-width: 228px;
-  }
-}
-
-@media screen and (max-width: 610px) {
+@media screen and (max-width: 655px) {
   .profile__current-name {
     max-width: 178px;
   }
 }
 
-@media screen and (max-width: 550px) {
-  .profile__current-name {
-    max-width: 128px;
-  }
-}
-
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 525px) {
   .profile__current-name {
     max-width: 78px;
   }

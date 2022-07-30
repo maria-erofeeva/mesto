@@ -13,6 +13,7 @@
   cursor: pointer;
   background-position: center;
   background-size: 10px;
+  border-style: solid;
 }
 
 @media screen and (max-width: 425px) {
@@ -25,5 +26,5 @@
 }
 
 .profile__name-edit:hover {
-  opacity: 0.5;
+  opacity: 0.6;
 }
