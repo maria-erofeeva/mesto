@@ -12,8 +12,8 @@ let formInputDescription = document.querySelector(
 
 function openPopup() {
   popupWholePage.classList.add("popup_opened");
-  formInputName.textContent = currentName.value;
-  formInputDescription.textContent = currentDescription.value;
+  formInputName.value = currentName.textContent;
+  formInputDescription.value = currentDescription.textContent;
 }
 
 popupLink.addEventListener("click", openPopup);
