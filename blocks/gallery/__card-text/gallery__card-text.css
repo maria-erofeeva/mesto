@@ -1,6 +1,6 @@
 .gallery__card-text {
   display: flex;
   justify-content: space-between;
-  max-height: 23px;
+  min-height: 23px;
   padding-top: 25px;
 }
