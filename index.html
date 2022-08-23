@@ -27,7 +27,7 @@
         <button class="profile__add-photo-button" aria-label="Add Photo" type="button"></button>
     </section>
 
-    <section class="gallery">
+    <section class="gallery id="outCards"">
         <div class="gallery__card">
             <img src="images/baikal-min.jpg" alt="Фото Байкала" class="gallery__image" />
             <div class="gallery__card-text">
@@ -86,6 +86,18 @@
                     <button class="popup__save" type="submit" aria-label="Save">Сохранить</button>
                 </form>
             <button class="popup__close-icon" type="button" aria-label="Close"></button>
+        </div>
+    </div>
+
+    <div class="modal" id="modal">
+        <div class="modal__container">
+                <h2 class="modal__title">Новое место</h2>
+                <form class="modal__form" name="add-card">
+                    <input type="text" name="title" placeholder="Название" class="modal__input modal__input_type_title"/>
+                    <input type="text" name="image" placeholder="Ссылка на картинку" class="modal__input modal__input_type_image"/>
+                    <button class="modal__create" type="submit" aria-label="Create">Создать</button>
+                </form>
+            <button class="modal__close-icon" type="button" aria-label="Close"></button>
         </div>
     </div>
 
