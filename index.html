@@ -27,9 +27,10 @@
         <button class="profile__add-photo-button" aria-label="Add Photo" type="button"></button>
     </section>
 
-    <section class="gallery id="outCards"">
-        <div class="gallery__card">
+    <section class="gallery" id="outCards">
+        <!--<div class="gallery__card">
             <img src="images/baikal-min.jpg" alt="Фото Байкала" class="gallery__image" />
+            <button class="gallery__delete-button" type="button" aria-label="Delete"></button>
             <div class="gallery__card-text">
                 <h2 class="gallery__card-title">Байкал</h2>
                 <button class="gallery__like-button" type="button" aria-label="Like"></button>
@@ -37,6 +38,7 @@
         </div>
         <div class="gallery__card">
             <img src="images/arkhangelsk-min.jpg" alt="Фото Архангельска" class="gallery__image" />
+            <button class="gallery__delete-button" type="button" aria-label="Delete"></button>
             <div class="gallery__card-text">
                 <h2 class="gallery__card-title">Архангельск</h2>
                 <button class="gallery__like-button" type="button" aria-label="Like"></button>
@@ -44,6 +46,7 @@
         </div>
         <div class="gallery__card">
             <img src="images/elbrus-min.jpg" alt="Фото Эльбруса" class="gallery__image" />
+            <button class="gallery__delete-button" type="button" aria-label="Delete"></button>
             <div class="gallery__card-text">
                 <h2 class="gallery__card-title">Эльбрус</h2>
                 <button class="gallery__like-button" type="button" aria-label="Like"></button>
@@ -51,6 +54,7 @@
         </div>
         <div class="gallery__card">
             <img src="images/kalyazin-min.jpg" alt="Фото Калязинской колокольни" class="gallery__image" />
+            <button class="gallery__delete-button" type="button" aria-label="Delete"></button>
             <div class="gallery__card-text">
                 <h2 class="gallery__card-title">Калязинская колокольня</h2>
                 <button class="gallery__like-button" type="button" aria-label="Like"></button>
@@ -58,6 +62,7 @@
         </div>
         <div class="gallery__card">
             <img src="images/karachaevsk-min.jpg" alt="Фото Карачаевска" class="gallery__image" />
+            <button class="gallery__delete-button" type="button" aria-label="Delete"></button>
             <div class="gallery__card-text">
                 <h2 class="gallery__card-title">Карачаевск</h2>
                 <button class="gallery__like-button" type="button" aria-label="Like"></button>
@@ -65,11 +70,13 @@
         </div>
         <div class="gallery__card">
             <img src="images/karelia-min.jpg" alt="Фото Карелии" class="gallery__image" />
+            <button class="gallery__delete-button" type="button" aria-label="Delete"></button>
             <div class="gallery__card-text">
                 <h2 class="gallery__card-title">Карелия</h2>
                 <button class="gallery__like-button" type="button" aria-label="Like"></button>
             </div>
         </div>
+    -->
     </section>
     </main>
 
@@ -100,6 +107,17 @@
             <button class="modal__close-icon" type="button" aria-label="Close"></button>
         </div>
     </div>
+
+    <template class="template">
+    <div class="gallery__card">
+        <img src="" class="gallery__image" />
+        <button class="gallery__delete-button" type="button" aria-label="Delete"></button>
+        <div class="gallery__card-text">
+            <h2 class="gallery__card-title"></h2>
+            <button class="gallery__like-button" type="button" aria-label="Like"></button>
+        </div>
+    </div>
+</template>
 
     <script src="scripts/index.js"></script>
 </body>

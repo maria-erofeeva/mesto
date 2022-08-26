@@ -9,14 +9,13 @@ let formInputName = document.querySelector(".popup__input_type_name");
 let formInputDescription = document.querySelector(
   ".popup__input_type_description"
 );
-let addCardButton = document.querySelector(".profile__add-photo-button");
-let modalWholePage = document.querySelector(".modal");
-let modalCloseButton = document.querySelector(".modal__close-icon");
 
-/*const initialCards = [
+/*объявление изначального массива*/
+
+const initialCards = [
   {
     name: "Байкал",
-    link: "https://unsplash.com/photos/2VQcuE-IFDo",
+    link: "https://unsplash.com/photos/uPx334kOgm0",
   },
   {
     name: "Архангельск",
@@ -40,12 +39,10 @@ let modalCloseButton = document.querySelector(".modal__close-icon");
   },
 ];
 
-const out = '';
-initialCards.forEach(el => {
-    out += el.name;
-    out += '<img src="' + el.link +'">';});
-document.getElementById('outCards').innerHTML = out;*/
+const gallery = document.querySelector(".gallery");
+const galleryCard = document.querySelector(".gallery__card");
 
+/*открыть попап*/
 
 function openPopup() { 
 
@@ -65,6 +62,8 @@ function closePopup() {
 
 popupCloseButton.addEventListener("click", closePopup);
 
+/*отправка формы попапа*/
+
 function formSubmitHandler(evt) {
   evt.preventDefault();
 
@@ -82,7 +81,11 @@ function formSubmitHandler(evt) {
 
 formElement.addEventListener("submit", formSubmitHandler);
 
+/*открыть модальное окно*/
 
+const addCardButton = document.querySelector(".profile__add-photo-button");
+const modalWholePage = document.querySelector(".modal");
+const modalCloseButton = document.querySelector(".modal__close-icon");
 
 function openModal() { 
 
@@ -97,3 +100,49 @@ function closeModal() {
 }
 
 modalCloseButton.addEventListener("click", closeModal);
+
+
+
+
+
+
+
+
+
+
+
+const modalElement = document.querySelector(".modal__form");
+const modalTextInput = document.querySelector(".gallery__card-title");
+const modalImageInput = document.querySelector(".gallery__image");
+const templateElement = document.querySelector(".template");
+const inputTitle = document.querySelector(".modal__input_type_title");
+const inputLink = document.querySelector(".modal__input_type_image");
+
+
+/*обработка события отправки формы*/
+
+function handleSubmit(e) {
+  e.preventDefault();
+
+const name = inputTitle.value;
+const link = inputLink.value;
+  addCard(link, name);
+}
+
+/*создание карточки*/
+
+
+
+function addCard(link, name) {
+  const newCard = templateElement.content.cloneNode(true);
+  newCard.querySelector('.gallery__card-title').textContent = name;
+  newCard.querySelector('.gallery__image').src = link;
+
+  gallery.prepend(newCard);
+ }
+
+/*вызов создания карточки*/
+
+initialCards.forEach(addCard);
+
+modalElement.addEventListener('submit', handleSubmit);
