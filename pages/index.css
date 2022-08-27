@@ -56,5 +56,5 @@
 @import url(../blocks/image-modal/__close-icon/image-modal__close-icon.css);
 @import url(../blocks/image-modal/__container/image-modal__container.css);
 @import url(../blocks/image-modal/__foto/image-modal__foto.css);
-@import url(../blocks/image-modal/__title/image-modal__title.css);
+@import url(../blocks/image-modal/__figcaption/image-modal__figcaption.css);
 @import url(../blocks/image-modal/_opened/image-modal_opened.css);

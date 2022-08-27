@@ -124,13 +124,16 @@ function cardDelete(element) {
 
 /*открытие модального окна*/
 
-const captionText = document.querySelector(".image-modal__title");
+const figcaptionText = document.querySelector(".image-modal__figcaption");
+const modalPage = document.querySelector(".image-modal");
+const galleryImage = document.querySelector(".gallery__image");
+const modalImg = document.querySelector(".image-modal__foto");
 
-function getCloserImage(element) {
-  imageModal.classList.add("image-modal_opened");
+function openImage(element) {
+
+  modalPage.classList.add("image-modal_opened");
   modalImg.src = element.target.src;
-  let text = $(element.target).text();
-  captionText = text.textContent;
+  figcaptionText.innerHTML = element.target.textContent;
 }
 
 /*создание карточки*/
@@ -144,12 +147,12 @@ function addCard(link, name) {
     .querySelector(".gallery__delete-button")
     .addEventListener("click", cardDelete);
 
-    newCard.querySelector(".gallery__card").addEventListener("click", getCloserImage);
+    newCard.querySelector(".gallery__card").addEventListener("click", openImage);
 
   gallery.prepend(newCard);
 }
 
-/*вызов создания карточки*/
+/*вызов*/
 
 initialCards.forEach(function (item) {
   const newCard = templateElement.content.cloneNode(true);
@@ -161,7 +164,7 @@ initialCards.forEach(function (item) {
     .querySelector(".gallery__delete-button")
     .addEventListener("click", cardDelete);
 
-    newCard.querySelector(".gallery__card").addEventListener("click", getCloserImage);
+    newCard.querySelector(".gallery__card").addEventListener("click", openImage);
 
   gallery.prepend(newCard);
 });
@@ -178,17 +181,10 @@ function like() {
 
 likeButton.addEventListener("click", like);
 
-/*переменные*/
-
-const imageModal = document.querySelector(".image-modal");
-const galleryImage = document.querySelector(".gallery__image");
-const modalImg = document.querySelector(".image-modal__foto");
-
-
 /*закрыть модальное окно*/
 
 function closeImage() {
-  imageModal.classList.remove("image-modal_opened");
+  modalPage.classList.remove("image-modal_opened");
 }
 
 document.querySelector('.image-modal__close-icon').addEventListener("click", closeImage);
