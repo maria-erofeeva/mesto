@@ -1,6 +1,6 @@
 .gallery__delete-button {
   position: absolute;
-  z-index: 2;
+  z-index: 20;
   top: 20px;
   right: 20px;
   background-image: url(../../../images/Trash.svg);

@@ -140,11 +140,11 @@ function addCard(link, name) {
   newCard.querySelector(".gallery__card-title").textContent = name;
 
   newCard.querySelector(".gallery__delete-button").addEventListener("click", cardDelete);
-  newCard.querySelector(".gallery__card").addEventListener("click", function(element) {
+  /*newCard.querySelector(".gallery__card").addEventListener("click", function(element) {
     modalPage.classList.add("image-modal_opened");
     modalImg.src = element.target.src;
     figcaptionText.textContent = item.name;
-  });
+  });*/
 
   gallery.prepend(newCard);
 }
@@ -168,7 +168,7 @@ initialCards.forEach(function (item) {
 
   newCard.querySelector(".gallery__delete-button").addEventListener("click", cardDelete);
 
-    newCard.querySelector(".gallery__card").addEventListener("click", function(element) {
+    newCard.querySelector(".gallery__image").addEventListener("click", function(element) {
       modalPage.classList.add("image-modal_opened");
       modalImg.src = element.target.src;
       figcaptionText.textContent = item.name;
