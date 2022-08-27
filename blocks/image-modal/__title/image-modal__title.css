@@ -1,0 +1,9 @@
+.image-modal__title {
+    margin: 0 auto;
+    padding: 0;
+    font-size: 12px;
+    width: 80%;
+    max-width: 75vw;
+    padding: 10px 0 0;
+    height: 12px;
+}

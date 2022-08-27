@@ -7,4 +7,5 @@
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   border-radius: 9px 9px 0 0;
+  transition: 0.3s;
 }

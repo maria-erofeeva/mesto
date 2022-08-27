@@ -1,6 +1,6 @@
 .gallery__delete-button {
   position: absolute;
-  z-index: 6;
+  z-index: 2;
   top: 20px;
   right: 20px;
   background-image: url(../../../images/Trash.svg);
@@ -15,3 +15,8 @@
   background-position: center;
   background-size: cover;
 }
+
+.gallery__delete-button:hover {
+  opacity: 0.6;
+}
+

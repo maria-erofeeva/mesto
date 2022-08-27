@@ -10,49 +10,15 @@ let formInputDescription = document.querySelector(
   ".popup__input_type_description"
 );
 
-/*объявление изначального массива*/
-
-const initialCards = [
-  {
-    name: "Байкал",
-    link: "https://unsplash.com/photos/uPx334kOgm0",
-  },
-  {
-    name: "Архангельск",
-    link: "https://unsplash.com/photos/uPx334kOgm0",
-  },
-  {
-    name: "Эльбрус",
-    link: "https://unsplash.com/photos/9qsK2QHidmg",
-  },
-  {
-    name: "Калязинская колокольня",
-    link: "https://unsplash.com/photos/s8ZVDmzGwKQ",
-  },
-  {
-    name: "Карачаевск",
-    link: "https://unsplash.com/photos/5sPYYR6lG28",
-  },
-  {
-    name: "Карелия",
-    link: "https://unsplash.com/photos/nUdN80QHMpA",
-  },
-];
-
-const gallery = document.querySelector(".gallery");
-const galleryCard = document.querySelector(".gallery__card");
-
 /*открыть попап*/
 
-function openPopup() { 
+function openPopup() {
+  popupWholePage.classList.add("popup_opened");
 
-  popupWholePage.classList.add("popup_opened"); 
+  formInputName.value = currentName.textContent;
 
-  formInputName.value = currentName.textContent; 
-
-  formInputDescription.value = currentDescription.textContent; 
-
-} 
+  formInputDescription.value = currentDescription.textContent;
+}
 
 popupLink.addEventListener("click", openPopup);
 
@@ -87,11 +53,9 @@ const addCardButton = document.querySelector(".profile__add-photo-button");
 const modalWholePage = document.querySelector(".modal");
 const modalCloseButton = document.querySelector(".modal__close-icon");
 
-function openModal() { 
-
-  modalWholePage.classList.add("modal_opened"); 
-
-} 
+function openModal() {
+  modalWholePage.classList.add("modal_opened");
+}
 
 addCardButton.addEventListener("click", openModal);
 
@@ -101,48 +65,130 @@ function closeModal() {
 
 modalCloseButton.addEventListener("click", closeModal);
 
+/*объявление изначального массива*/
 
+const initialCards = [
+  {
+    name: "Байкал",
+    link: "images/baikal-min.jpg",
+  },
+  {
+    name: "Архангельск",
+    link: "images/arkhangelsk-min.jpg",
+  },
+  {
+    name: "Эльбрус",
+    link: "images/elbrus-min.jpg",
+  },
+  {
+    name: "Калязинская колокольня",
+    link: "images/kalyazin-min.jpg",
+  },
+  {
+    name: "Карачаевск",
+    link: "images/karachaevsk-min.jpg",
+  },
+  {
+    name: "Карелия",
+    link: "images/karelia-min.jpg",
+  },
+];
 
-
-
-
-
-
-
-
+const gallery = document.querySelector(".gallery");
+const galleryCard = document.querySelector(".gallery__card");
 
 const modalElement = document.querySelector(".modal__form");
-const modalTextInput = document.querySelector(".gallery__card-title");
-const modalImageInput = document.querySelector(".gallery__image");
 const templateElement = document.querySelector(".template");
-const inputTitle = document.querySelector(".modal__input_type_title");
-const inputLink = document.querySelector(".modal__input_type_image");
-
 
 /*обработка события отправки формы*/
 
 function handleSubmit(e) {
   e.preventDefault();
 
-const name = inputTitle.value;
-const link = inputLink.value;
+  const link = document.querySelector(".modal__input_type_image").value;
+  const name = document.querySelector(".modal__input_type_title").value;
+
+  document.querySelector(".modal__input_type_image").value = "";
+  document.querySelector(".modal__input_type_title").value = "";
+
   addCard(link, name);
+  closeModal();
+}
+
+/*удаление карточки*/
+
+function cardDelete(element) {
+  const deletedCard = element.target.closest(".gallery__card");
+  deletedCard.remove();
+}
+
+/*открытие модального окна*/
+
+const captionText = document.querySelector(".image-modal__title");
+
+function getCloserImage(element) {
+  imageModal.classList.add("image-modal_opened");
+  modalImg.src = element.target.src;
+  let text = $(element.target).text();
+  captionText = text.textContent;
 }
 
 /*создание карточки*/
 
-
-
 function addCard(link, name) {
   const newCard = templateElement.content.cloneNode(true);
-  newCard.querySelector('.gallery__card-title').textContent = name;
-  newCard.querySelector('.gallery__image').src = link;
+  newCard.querySelector(".gallery__image").src = link;
+  newCard.querySelector(".gallery__card-title").textContent = name;
+
+  newCard
+    .querySelector(".gallery__delete-button")
+    .addEventListener("click", cardDelete);
+
+    newCard.querySelector(".gallery__card").addEventListener("click", getCloserImage);
 
   gallery.prepend(newCard);
- }
+}
 
 /*вызов создания карточки*/
 
-initialCards.forEach(addCard);
+initialCards.forEach(function (item) {
+  const newCard = templateElement.content.cloneNode(true);
 
-modalElement.addEventListener('submit', handleSubmit);
+  newCard.querySelector(".gallery__image").src = item.link;
+  newCard.querySelector(".gallery__card-title").textContent = item.name;
+
+  newCard
+    .querySelector(".gallery__delete-button")
+    .addEventListener("click", cardDelete);
+
+    newCard.querySelector(".gallery__card").addEventListener("click", getCloserImage);
+
+  gallery.prepend(newCard);
+});
+
+modalElement.addEventListener("submit", handleSubmit);
+
+/*поставить/убрать лайк*/
+
+const likeButton = document.querySelector(".gallery__like-button");
+
+function like() {
+  likeButton.classList.toggle("gallery__like-button_active");
+}
+
+likeButton.addEventListener("click", like);
+
+/*переменные*/
+
+const imageModal = document.querySelector(".image-modal");
+const galleryImage = document.querySelector(".gallery__image");
+const modalImg = document.querySelector(".image-modal__foto");
+
+
+/*закрыть модальное окно*/
+
+function closeImage() {
+  imageModal.classList.remove("image-modal_opened");
+}
+
+document.querySelector('.image-modal__close-icon').addEventListener("click", closeImage);
