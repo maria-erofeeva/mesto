@@ -124,33 +124,39 @@ function cardDelete(element) {
 
 /*открытие модального окна*/
 
-const figcaptionText = document.querySelector(".image-modal__figcaption");
+
 const modalPage = document.querySelector(".image-modal");
 const galleryImage = document.querySelector(".gallery__image");
+const galleryFig = document.querySelector(".gallery__card-title");
 const modalImg = document.querySelector(".image-modal__foto");
-
-function openImage(element) {
-
-  modalPage.classList.add("image-modal_opened");
-  modalImg.src = element.target.src;
-  figcaptionText.innerHTML = element.target.textContent;
-}
+const figcaptionText = document.querySelector(".image-modal__figcaption");
 
 /*создание карточки*/
+
 
 function addCard(link, name) {
   const newCard = templateElement.content.cloneNode(true);
   newCard.querySelector(".gallery__image").src = link;
   newCard.querySelector(".gallery__card-title").textContent = name;
 
-  newCard
-    .querySelector(".gallery__delete-button")
-    .addEventListener("click", cardDelete);
-
-    newCard.querySelector(".gallery__card").addEventListener("click", openImage);
+  newCard.querySelector(".gallery__delete-button").addEventListener("click", cardDelete);
+  newCard.querySelector(".gallery__card").addEventListener("click", function(element) {
+    modalPage.classList.add("image-modal_opened");
+    modalImg.src = element.target.src;
+    figcaptionText.textContent = item.name;
+  });
 
   gallery.prepend(newCard);
 }
+
+/*function openImage(element) {
+
+  modalPage.classList.add("image-modal_opened");
+
+  modalImg.src = element.target.src;
+  /*figcaptionText.innerHTML = element.target.textContent;
+  console.log('element.target.textContent');
+};*/
 
 /*вызов*/
 
@@ -160,11 +166,13 @@ initialCards.forEach(function (item) {
   newCard.querySelector(".gallery__image").src = item.link;
   newCard.querySelector(".gallery__card-title").textContent = item.name;
 
-  newCard
-    .querySelector(".gallery__delete-button")
-    .addEventListener("click", cardDelete);
+  newCard.querySelector(".gallery__delete-button").addEventListener("click", cardDelete);
 
-    newCard.querySelector(".gallery__card").addEventListener("click", openImage);
+    newCard.querySelector(".gallery__card").addEventListener("click", function(element) {
+      modalPage.classList.add("image-modal_opened");
+      modalImg.src = element.target.src;
+      figcaptionText.textContent = item.name;
+    });
 
   gallery.prepend(newCard);
 });

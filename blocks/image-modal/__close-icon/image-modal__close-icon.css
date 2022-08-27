@@ -19,7 +19,7 @@
     opacity: 0.6;
   }
   
-  @media screen and (max-width: 525px) {
+  @media screen and (max-width: 768px) {
     .image-modal__close-icon {
       top: -48px;
       right: 0;
