@@ -1,41 +1,47 @@
-let popupLink = document.querySelector(".profile__name-edit");
-let popup = document.querySelector(".popup__container");
-let popupCloseButton = document.querySelector(".popup__close-icon");
-let formElement = document.querySelector(".popup__form");
-let popupWholePage = document.querySelector(".popup");
-let currentName = document.querySelector(".profile__current-name");
-let currentDescription = document.querySelector(".profile__status");
-let formInputName = document.querySelector(".popup__input_type_name");
-let formInputDescription = document.querySelector(
+const popupProfileOpenButton = document.querySelector(".profile__name-edit");
+/*const popup = document.querySelector(".popup__container");*/
+const popupCloseButton = document.getElementById("popup-edit-profile-close-button");
+const formElement = document.getElementById("popup-edit-profile-form");
+const popupWholePage = document.getElementById("popup-edit-profile");
+const currentName = document.querySelector(".profile__current-name");
+const currentDescription = document.querySelector(".profile__status");
+const formInputName = document.querySelector(".popup__input_type_name");
+const formInputDescription = document.querySelector(
   ".popup__input_type_description"
 );
 
 /*открыть попап*/
 
-function openPopup() {
-  popupWholePage.classList.add("popup_opened");
+function openPopup(popup) {
+  popup.classList.add("popup_opened");
+}
 
+/*закрыть попап*/
+
+function closePopup(popup) {
+  popup.classList.remove("popup_opened");
+}
+
+/*открыть/закрыть попап с редактированием профиля*/
+
+popupProfileOpenButton.addEventListener("click", function() {
+  openPopup(popupWholePage);
   formInputName.value = currentName.textContent;
-
   formInputDescription.value = currentDescription.textContent;
-}
+});
 
-popupLink.addEventListener("click", openPopup);
-
-function closePopup() {
-  popupWholePage.classList.remove("popup_opened");
-}
-
-popupCloseButton.addEventListener("click", closePopup);
+popupCloseButton.addEventListener("click", function() {
+  closePopup(popupWholePage);
+});
 
 /*отправка формы попапа*/
 
 function formSubmitHandler(evt) {
   evt.preventDefault();
 
-  let popupName = document.querySelector(".popup__input_type_name").value;
+  const popupName = document.querySelector(".popup__input_type_name").value;
 
-  let popupDescription = document.querySelector(
+  const popupDescription = document.querySelector(
     ".popup__input_type_description"
   ).value;
 
