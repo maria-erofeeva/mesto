@@ -1,4 +1,4 @@
-.modal__create {
+.popup__create {
   width: 358px;
   height: 50px;
   transition: 0.8s;
@@ -12,12 +12,12 @@
   border: 0;
 }
 
-.modal__create:hover {
+.popup__create:hover {
   opacity: 0.8;
 }
 
 @media screen and (max-width: 425px) {
-  .modal__create {
+  .popup__create {
     width: 100%;
     height: 46px;
     font-size: 14px;

@@ -50,20 +50,20 @@ formElement.addEventListener("submit", formSubmitHandler);
 /*открыть модальное окно*/
 
 const addCardButton = document.querySelector(".profile__add-photo-button");
-const modalWholePage = document.querySelector(".modal");
-const modalCloseButton = document.querySelector(".modal__close-icon");
+const addCardWholePage = document.getElementById("popup-add-card");
+const addCardCloseButton = document.getElementById("popup-add-card-close-button");
 
 function openModal() {
-  modalWholePage.classList.add("modal_opened");
+  addCardWholePage.classList.add("popup_opened");
 }
 
 addCardButton.addEventListener("click", openModal);
 
 function closeModal() {
-  modalWholePage.classList.remove("modal_opened");
+  addCardWholePage.classList.remove("popup_opened");
 }
 
-modalCloseButton.addEventListener("click", closeModal);
+addCardCloseButton.addEventListener("click", closeModal);
 
 /*объявление изначального массива*/
 
@@ -97,7 +97,7 @@ const initialCards = [
 const gallery = document.querySelector(".gallery");
 const galleryCard = document.querySelector(".gallery__card");
 
-const modalElement = document.querySelector(".modal__form");
+const popupAddCardElement = document.getElementById("popup-add-card-form");
 const templateElement = document.querySelector(".template");
 
 /*обработка события отправки формы*/
@@ -105,11 +105,11 @@ const templateElement = document.querySelector(".template");
 function handleSubmit(e) {
   e.preventDefault();
 
-  const link = document.querySelector(".modal__input_type_image").value;
-  const name = document.querySelector(".modal__input_type_title").value;
+  const link = document.getElementById("popup-add-card-link").value;
+  const name = document.getElementById("popup-add-card-title").value;
 
-  document.querySelector(".modal__input_type_image").value = "";
-  document.querySelector(".modal__input_type_title").value = "";
+  document.getElementById("popup-add-card-link").value = "";
+  document.getElementById("popup-add-card-title").value = "";
 
   addCard(link, name);
   closeModal();
@@ -125,11 +125,11 @@ function cardDelete(element) {
 /*открытие модального окна*/
 
 
-const modalPage = document.querySelector(".image-modal");
+const openImageWholePage = document.getElementById("popup-open-image");
 const galleryImage = document.querySelector(".gallery__image");
 const galleryFig = document.querySelector(".gallery__card-title");
-const modalImg = document.querySelector(".image-modal__foto");
-const figcaptionText = document.querySelector(".image-modal__figcaption");
+const popupImg = document.querySelector(".popup__foto");
+const figcaptionText = document.querySelector(".popup__figcaption");
 
 /*создание карточки*/
 
@@ -141,8 +141,8 @@ function addCard(link, name) {
 
   newCard.querySelector(".gallery__delete-button").addEventListener("click", cardDelete);
   /*newCard.querySelector(".gallery__card").addEventListener("click", function(element) {
-    modalPage.classList.add("image-modal_opened");
-    modalImg.src = element.target.src;
+    openImageWholePage.classList.add("popup_opened");
+    popupImg.src = element.target.src;
     figcaptionText.textContent = item.name;
   });*/
 
@@ -151,9 +151,9 @@ function addCard(link, name) {
 
 /*function openImage(element) {
 
-  modalPage.classList.add("image-modal_opened");
+  openImageWholePage.classList.add("popup_opened");
 
-  modalImg.src = element.target.src;
+  popupImg.src = element.target.src;
   /*figcaptionText.innerHTML = element.target.textContent;
   console.log('element.target.textContent');
 };*/
@@ -169,15 +169,15 @@ initialCards.forEach(function (item) {
   newCard.querySelector(".gallery__delete-button").addEventListener("click", cardDelete);
 
     newCard.querySelector(".gallery__image").addEventListener("click", function(element) {
-      modalPage.classList.add("image-modal_opened");
-      modalImg.src = element.target.src;
+      openImageWholePage.classList.add("popup_opened");
+      popupImg.src = element.target.src;
       figcaptionText.textContent = item.name;
     });
 
   gallery.prepend(newCard);
 });
 
-modalElement.addEventListener("submit", handleSubmit);
+popupAddCardElement.addEventListener("submit", handleSubmit);
 
 /*поставить/убрать лайк*/
 
@@ -192,7 +192,7 @@ likeButton.addEventListener("click", like);
 /*закрыть модальное окно*/
 
 function closeImage() {
-  modalPage.classList.remove("image-modal_opened");
+  openImageWholePage.classList.remove("popup_opened");
 }
 
-document.querySelector('.image-modal__close-icon').addEventListener("click", closeImage);
+document.getElementById('popup-open-image-close-button').addEventListener("click", closeImage);
