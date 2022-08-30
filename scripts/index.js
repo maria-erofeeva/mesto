@@ -130,35 +130,17 @@ imageCloseButton.addEventListener("click", function () {
 
 /*создание карточки*/
 
-/*function createCard(link, name) {
-  const newCard = templateElement.content.cloneNode(true);
-  newCard.querySelector(".gallery__image").src = link;
-  newCard.querySelector(".gallery__card-title").textContent = name;
-
-  newCard.querySelector(".gallery__delete-button").addEventListener("click", deleteCardForm);
-  newCard.querySelector(".gallery__image").addEventListener("click", function (element) {
-      openImageWholePage.classList.add("popup_opened");
-      popupImg.src = element.target.src;
-      figcaptionText.textContent = element.name;
-    });
-    newCard.getElementById("gallery-like-button").addEventListener("click", function () { 
-
-      document.getElementById("gallery-like-button").classList.toggle("gallery__like-button_active"); 
-    
-    });
-    return newCard;
-};*/
+const newCard = templateElement.content.cloneNode(true);
 
 function createCard() {
-  const newCard = templateElement.content.cloneNode(true);
   newCard.querySelector(".gallery__image").src = addCardLink.value;
   newCard.querySelector(".gallery__card-title").textContent = addCardName.value;
 
   newCard.querySelector(".gallery__delete-button").addEventListener("click", deleteCardForm);
-  newCard.querySelector(".gallery__image").addEventListener("click", function (element) {
+  newCard.querySelector(".gallery__card").addEventListener("click", function (element) {
       openImageWholePage.classList.add("popup_opened");
       popupImg.src = element.target.src;
-      figcaptionText.textContent = element.name;
+      figcaptionText.textContent = this.textContent;
     });
     newCard.getElementById("gallery-like-button").addEventListener("click", function () { 
 
@@ -166,7 +148,7 @@ function createCard() {
     
     });
     return newCard;
-};
+  };
 
 /*добавление карточки на страницу*/
 
@@ -178,7 +160,8 @@ function addNewCard(card, container) {
 
 function submitCardForm(e) {
   e.preventDefault();
-  addNewCard(newCard, gallery);
+  const newCardElement = createCard();
+  addNewCard(newCardElement, gallery);
   closePopup(addCardWholePage);
   addCardLink.value = "";
   addCardName.value = "";
@@ -186,9 +169,9 @@ function submitCardForm(e) {
 
 /*вызов*/
 
-initialCards.forEach(function (item) {
-  const newCard = templateElement.content.cloneNode(true);
+initialCards.forEach(function(item) { 
 
+  const newCard = templateElement.content.cloneNode(true);
   newCard.querySelector(".gallery__image").src = item.link;
   newCard.querySelector(".gallery__card-title").textContent = item.name;
 
