@@ -146,11 +146,9 @@ function createCard(image, title) {
       figcaptionText.textContent = this.textContent;
     });
   newCard
-    .getElementById("gallery-like-button")
-    .addEventListener("click", function () {
-      document
-        .getElementById("gallery-like-button")
-        .classList.toggle("gallery__like-button_active");
+    .querySelector(".gallery__like-button")
+    .addEventListener("click", function (evt) {
+      evt.target.classList.toggle("gallery__like-button_active");
     });
   return newCard;
 }
