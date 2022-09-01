@@ -56,8 +56,8 @@ const galleryCard = document.querySelector(".gallery__card");
 const cardFormElement = document.getElementById("popup-add-card-form");
 const templateElement = document.querySelector(".template");
 
-const inputCardName = document.getElementById("popup-add-card-title");
-const inputCardLink = document.getElementById("popup-add-card-link");
+const cardFormName = document.getElementById("popup-add-card-title");
+const cardFormLink = document.getElementById("popup-add-card-link");
 const imageWholePage = document.getElementById("popup-open-image");
 const galleryImage = document.querySelector(".gallery__image");
 const galleryFig = document.querySelector(".gallery__card-title");
@@ -163,11 +163,11 @@ function addNewCard(card, container) {
 
 function submitCardForm(e) {
   e.preventDefault();
-  const newCardElement = createCard(inputCardLink.value, inputCardName.value);
+  const newCardElement = createCard(cardFormLink.value, cardFormName.value);
   addNewCard(newCardElement, gallery);
   closePopup(cardFormWholePage);
-  inputCardLink.value = "";
-  inputCardName.value = "";
+  cardFormLink.value = "";
+  cardFormName.value = "";
 }
 
 /*вызов*/
