@@ -98,7 +98,7 @@ function submitProfileForm(evt) {
   evt.preventDefault();
   currentName.textContent = popupName.value;
   currentDescription.textContent = popupDescription.value;
-  closePopup();
+  closePopup(popupWholePage);
 }
 
 formProfile.addEventListener("submit", submitProfileForm);
@@ -139,11 +139,11 @@ function createCard(image, title) {
     .querySelector(".gallery__delete-button")
     .addEventListener("click", deleteCardForm);
   newCard
-    .querySelector(".gallery__card")
+    .querySelector(".gallery__image")
     .addEventListener("click", function (element) {
       openPopup(imageWholePage);
       popupImg.src = element.target.src;
-      figcaptionText.textContent = this.textContent;
+      figcaptionText.textContent = title;
     });
   newCard
     .querySelector(".gallery__like-button")
