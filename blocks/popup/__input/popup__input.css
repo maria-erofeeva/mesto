@@ -10,14 +10,11 @@
     padding: 0;
     height: 27px;
     margin-bottom: 30px;
+    position: relative;
   }
   
   .popup__input:last-of-type {
-    margin-bottom: 48px;
+    margin-bottom: 0;
   }
 
-  @media screen and (max-width: 425px) {
-    .popup__input:last-of-type {
-      margin-bottom: 45px;
-    }
-  }
+  
