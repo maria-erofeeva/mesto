@@ -97,6 +97,8 @@ popupProfileOpenButton.addEventListener("click", function () {
   openPopup(popupWholePage);
   popupName.value = currentName.textContent;
   popupDescription.value = currentDescription.textContent;
+  closeModalPress(popupWholePage);
+  closeModalEsc(popupWholePage);
 });
 
 popupCloseButton.addEventListener("click", function () {
@@ -118,6 +120,8 @@ formProfile.addEventListener("submit", submitProfileForm);
 
 cardFormOpenButton.addEventListener("click", function () {
   openPopup(cardFormWholePage);
+  closeModalPress(cardFormWholePage);
+  closeModalEsc(cardFormWholePage);
 });
 
 cardFormCloseButton.addEventListener("click", function () {
@@ -155,6 +159,8 @@ function createCard(image, title) {
       openPopup(imageWholePage);
       popupImg.src = element.target.src;
       figcaptionText.textContent = title;
+      closeModalPress(imageWholePage);
+      closeModalEsc(imageWholePage);
     });
   newCard
     .querySelector(".gallery__like-button")
@@ -231,9 +237,6 @@ function setEventListeners (formElement) {
     inputElement.addEventListener('input', function () {
       checkInputValidity(formElement, inputElement);
       toggleButtonState(inputList, buttonElement);
-      // changeButtonPosition (formElement);
-      // changeButtonPosition (formElement, saveButton);
-      // changeButtonPosition (formElement, createButton);
     });
   });
 };
@@ -272,6 +275,31 @@ function toggleButtonState (inputList, buttonElement) {
     buttonElement.removeAttribute('disabled', true);
   }
 };
+
+/*закрытие попапа при клике на esc*/
+
+function closeModalEsc (modal) {
+  if (modal.classList.contains("popup_opened")) {
+  window.addEventListener('keydown', function(event) {
+      if (event.keyCode == 27){
+        closePopup(modal);
+      }
+    });
+  }
+}
+
+/*закрытие попапа при клике вне попапа*/
+
+function closeModalPress (modal) {
+  if(modal.classList.contains("popup_opened")) {
+    document.addEventListener('click', function(event) {
+      if(!event.target.closest('.popup__container') && !event.target.closest('.popup__close-icon') && !event.target.closest('.profile__name-edit') && !event.target.closest('.gallery__image') && !event.target.closest('.profile__add-photo-button')){
+        closePopup(modal);
+      }
+    });
+  }
+}
+
 
 // function changeButtonPosition (formElement) {
 //   const inputList = Array.from(formElement.querySelectorAll('.popup__input'));
