@@ -231,7 +231,7 @@ const createButton = document.querySelector('.popup__create');
 
 function setEventListeners (formElement) {
   const inputList = Array.from(formElement.querySelectorAll('.popup__input'));
-  const buttonElement = formElement.querySelector('#button');
+  const buttonElement = formElement.querySelector('.popup__button');
   toggleButtonState(inputList, buttonElement);
   inputList.forEach(function (inputElement) {
     inputElement.addEventListener('input', function () {
