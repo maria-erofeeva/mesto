@@ -85,6 +85,12 @@ const imageCloseButton = document.getElementById(
 
 function openPopup(popup) {
   popup.classList.add("popup_opened");
+  popup.addEventListener('click', function closeModalPress(event) {
+    if (!event.target.closest('.popup__container') && !event.target.closest('.popup__image-container') || event.target.closest('.popup__close-icon')) {
+      const openedPopup = document.querySelector(".popup_opened");
+      closePopup(openedPopup);
+    }
+  });
 }
 
 /*закрыть попап*/
@@ -197,28 +203,6 @@ cardFormElement.addEventListener("submit", submitCardForm);
 
 function closeByEsc(event) {
   if (event.key === "Escape") {
-    const openedPopup = document.querySelector(".popup_opened");
-    closePopup(openedPopup);
-  }
-}
-
-/*закрытие попапа при клике вне попапа*/
-
-// function closeModalPress(event) {
-//   if (
-//     !event.target.closest(".popup__container") &&
-//     !event.target.closest(".popup__close-icon") &&
-//     !event.target.closest(".profile__name-edit") &&
-//     !event.target.closest(".gallery__image") &&
-//     !event.target.closest(".profile__add-photo-button")
-//   ) {
-//     const openedPopup = document.querySelector(".popup_opened");
-//     closePopup(openedPopup);
-//   }
-// }
-
-function closeModalPress(event) {
-  if (!event.target.closest(".popup__container")) {
     const openedPopup = document.querySelector(".popup_opened");
     closePopup(openedPopup);
   }
