@@ -54,6 +54,7 @@ const nameInputError = formProfile.querySelector(`.${popupName.id}-error`);
 const descriptionInputError = formProfile.querySelector(
   `.${popupDescription.id}-error`
 );
+const saveButton = document.querySelector(".popup__save");
 
 /*галерея*/
 
@@ -69,6 +70,7 @@ const templateElement = document.querySelector(".template");
 const cardFormElement = document.getElementById("popup-add-card-form");
 const cardFormName = document.getElementById("popup-add-card-title");
 const cardFormLink = document.getElementById("popup-add-card-link");
+const createButton = document.querySelector(".popup__create");
 
 /*попап – приблизить картинку*/
 
@@ -83,8 +85,6 @@ const imageCloseButton = document.getElementById(
 
 function openPopup(popup) {
   popup.classList.add("popup_opened");
-  document.addEventListener("keydown", closeByEsc);
-  popup.addEventListener("click", closeModalPress);
 }
 
 /*закрыть попап*/
@@ -100,8 +100,6 @@ popupProfileOpenButton.addEventListener("click", function () {
   openPopup(popupWholePage);
   popupName.value = currentName.textContent;
   popupDescription.value = currentDescription.textContent;
-  // closeModalPress(popupWholePage);
-  // closeModalEsc(popupWholePage);
 });
 
 popupCloseButton.addEventListener("click", function () {
@@ -123,8 +121,7 @@ formProfile.addEventListener("submit", submitProfileForm);
 
 cardFormOpenButton.addEventListener("click", function () {
   openPopup(cardFormWholePage);
-  // closeModalPress(cardFormWholePage);
-  // closeModalEsc(cardFormWholePage);
+  buttonBlock(cardFormWholePage);
 });
 
 cardFormCloseButton.addEventListener("click", function () {
@@ -146,8 +143,6 @@ imageCloseButton.addEventListener("click", function () {
 
 /*создание карточки*/
 
-// const newCard = templateElement.content.cloneNode(true);
-
 function createCard(image, title) {
   const newCard = templateElement.content.cloneNode(true);
   newCard.querySelector(".gallery__image").src = image;
@@ -164,8 +159,6 @@ function createCard(image, title) {
       popupImg.src = element.target.src;
       figcaptionText.textContent = title;
       popupImg.alt = title;
-      // closeModalPress(imageWholePage);
-      // closeModalEsc(imageWholePage);
     });
   newCard
     .querySelector(".gallery__like-button")
@@ -200,106 +193,7 @@ initialCards.forEach((card) => {
 
 cardFormElement.addEventListener("submit", submitCardForm);
 
-/*включение валидации форм*/
-
-enableValidation({
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__button',
-  inactiveButtonClass: 'popup__button_disabled',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__error_visible'
-}); 
-
-/*изменение стиля поля при ошибке*/
-
-function showInputError(formElement, inputElement, errorMessage) {
-  const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-  inputElement.classList.add("popup__input_type_error");
-  errorElement.textContent = errorMessage;
-  errorElement.classList.add("popup__input-error_active");
-}
-
-function hideInputError(formElement, inputElement) {
-  const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-  inputElement.classList.remove("popup__input_type_error");
-  errorElement.classList.remove("popup__input-error_active");
-  errorElement.textContent = "";
-}
-
-/*проверка валидности инпута*/
-
-function checkInputValidity(formElement, inputElement) {
-  if (!inputElement.validity.valid) {
-    showInputError(formElement, inputElement, inputElement.validationMessage);
-  } else {
-    hideInputError(formElement, inputElement);
-  }
-}
-
-/*установить слушатели на все инпуты*/
-
-const saveButton = document.querySelector(".popup__save");
-const createButton = document.querySelector(".popup__create");
-
-function setEventListeners(formElement) {
-  const inputList = Array.from(formElement.querySelectorAll(".popup__input"));
-  const buttonElement = formElement.querySelector(".popup__button");
-  toggleButtonState(inputList, buttonElement);
-  inputList.forEach(function (inputElement) {
-    inputElement.addEventListener("input", function () {
-      checkInputValidity(formElement, inputElement);
-      toggleButtonState(inputList, buttonElement);
-    });
-  });
-}
-
-/*установить слушатели на все формы*/
-
-function enableValidation() {
-  const formList = Array.from(document.querySelectorAll(".popup__form"));
-  formList.forEach(function (formElement) {
-    formElement.addEventListener("submit", function (evt) {
-      evt.preventDefault();
-    });
-
-    setEventListeners(formElement);
-  });
-}
-
-enableValidation();
-
-/*проверка кода на валидность*/
-
-function hasInvalidInput(inputList) {
-  return inputList.some((inputElement) => {
-    return !inputElement.validity.valid;
-  });
-}
-
-/*включение и выключение кнопки*/
-
-function toggleButtonState(inputList, buttonElement) {
-  if (hasInvalidInput(inputList)) {
-    buttonElement.classList.add("popup__button_inactive");
-    buttonElement.setAttribute("disabled", true);
-  } else {
-    buttonElement.classList.remove("popup__button_inactive");
-    buttonElement.removeAttribute("disabled", true);
-  }
-}
-
 /*закрытие попапа при клике на esc*/
-
-// function closeModalEsc (modal) {
-//   if (modal.classList.contains("popup_opened")) {
-//   document.addEventListener('keydown', function(event) {
-//       if (evt.key === 'Escape'){
-//         closePopup(modal);
-//       }
-//     });
-//   }
-// }
 
 function closeByEsc(event) {
   if (event.key === "Escape") {
@@ -310,53 +204,33 @@ function closeByEsc(event) {
 
 /*закрытие попапа при клике вне попапа*/
 
-// function closeModalPress (modal) {
-//   if(modal.classList.contains("popup_opened")) {
-//     document.addEventListener('click', function(event) {
-//       if(!event.target.closest('.popup__container') && !event.target.closest('.popup__close-icon') && !event.target.closest('.profile__name-edit') && !event.target.closest('.gallery__image') && !event.target.closest('.profile__add-photo-button')){
-//         closePopup(modal);
-//       }
-//     });
-//   }
-// }
-
-function closeModalPress (event) {
-  if(!event.target.closest('.popup__container') && !event.target.closest('.popup__close-icon') && !event.target.closest('.profile__name-edit') && !event.target.closest('.gallery__image') && !event.target.closest('.profile__add-photo-button')){
-    const openedPopup = document.querySelector('.popup_opened');
-    closePopup(openedPopup);
-      }
-    };
-
 // function closeModalPress(event) {
-//   if (event.target.closest('.popup') || event.target.closest('.popup__close-icon')){
+//   if (
+//     !event.target.closest(".popup__container") &&
+//     !event.target.closest(".popup__close-icon") &&
+//     !event.target.closest(".profile__name-edit") &&
+//     !event.target.closest(".gallery__image") &&
+//     !event.target.closest(".profile__add-photo-button")
+//   ) {
 //     const openedPopup = document.querySelector(".popup_opened");
 //     closePopup(openedPopup);
 //   }
 // }
 
-// function changeButtonPosition (formElement) {
-//   const inputList = Array.from(formElement.querySelectorAll('.popup__input'));
-//   const saveButton = formElement.querySelector('.popup__save');
-//   const lastInput = inputList.slice(-1);
-//   lastInput.forEach(function(item) {
-//     if (!item.validity.valid) {
-//       saveButton.style.margin = "31.34px 0 0 0";
-//       } else {
-//         saveButton.style.margin = "48px 0 0 0";
-//       }
-//   });
-// }
+function closeModalPress(event) {
+  if (!event.target.closest(".popup__container")) {
+    const openedPopup = document.querySelector(".popup_opened");
+    closePopup(openedPopup);
+  }
+}
 
-// function changeButtonPosition (formElement, saveButton) {
-//   const inputList = Array.from(formElement.querySelectorAll('.popup__input'));
-//   const lastInput = inputList.slice(-1);
-//   lastInput.forEach(function(item) {
-//     if (!item.validity.valid) {
-//       saveButton.style.margin = "31.34px 0 0 0";
-//       } else {
-//         saveButton.style.margin = "48px 0 0 0";
-//       }
-//   });
-// }
+/*функция-проверка полей и блокировки кнопки*/
 
-
+function buttonBlock(popup) {
+  const button = popup.querySelector(".popup__button");
+  const input = popup.querySelectorAll(".popup__input");
+  if (input.textContent === undefined) {
+    button.classList.add("popup__button_inactive");
+    button.setAttribute("disabled", true);
+  }
+}
