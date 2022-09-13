@@ -1,6 +1,6 @@
 /*включение валидации форм*/
 
-const enableValidation = {
+const validationElements = {
   formSelector: ".popup__form",
   inputSelector: ".popup__input",
   submitButtonSelector: ".popup__button",
@@ -54,9 +54,6 @@ function setEventListeners(form, config) {
 function setValidation(config) {
   const formList = Array.from(document.querySelectorAll(config.formSelector));
   formList.forEach(function (form) {
-    form.addEventListener("submit", function (evt) {
-      evt.preventDefault();
-    });
     setEventListeners(form, config);
   });
 }
@@ -81,4 +78,15 @@ function toggleButtonState(inputs, button, config) {
   }
 }
 
-setValidation(enableValidation);
+/*функция-проверка полей и блокировки кнопки*/
+
+function buttonBlock(popup) {
+  const button = popup.querySelector(".popup__button");
+  const input = popup.querySelectorAll(".popup__input");
+  if (input.textContent === undefined) {
+    button.classList.add("popup__button_inactive");
+    button.setAttribute("disabled", true);
+  }
+}
+
+setValidation(validationElements);

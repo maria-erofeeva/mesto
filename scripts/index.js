@@ -85,19 +85,14 @@ const imageCloseButton = document.getElementById(
 
 function openPopup(popup) {
   popup.classList.add("popup_opened");
-  popup.addEventListener('click', function closeModalPress(event) {
-    if (!event.target.closest('.popup__container') && !event.target.closest('.popup__image-container') || event.target.closest('.popup__close-icon')) {
-      const openedPopup = document.querySelector(".popup_opened");
-      closePopup(openedPopup);
-    }
-  });
+  popup.addEventListener('click', closeModalPress);
 }
 
 /*закрыть попап*/
 
 function closePopup(popup) {
   popup.classList.remove("popup_opened");
-  document.removeEventListener("keydown", closeByEsc);
+  popup.removeEventListener('click', closeModalPress);
 }
 
 /*открыть/закрыть попап с редактированием профиля*/
@@ -201,6 +196,8 @@ cardFormElement.addEventListener("submit", submitCardForm);
 
 /*закрытие попапа при клике на esc*/
 
+document.addEventListener('keydown', closeByEsc);
+
 function closeByEsc(event) {
   if (event.key === "Escape") {
     const openedPopup = document.querySelector(".popup_opened");
@@ -208,13 +205,12 @@ function closeByEsc(event) {
   }
 }
 
-/*функция-проверка полей и блокировки кнопки*/
-
-function buttonBlock(popup) {
-  const button = popup.querySelector(".popup__button");
-  const input = popup.querySelectorAll(".popup__input");
-  if (input.textContent === undefined) {
-    button.classList.add("popup__button_inactive");
-    button.setAttribute("disabled", true);
-  }
+function closeModalPress(event) {
+  if (event.target.classList.contains('popup') || event.target.classList.contains('popup__close')) { 
+    closePopup(event.currentTarget);
+ }
 }
+
+
+
+
