@@ -85,14 +85,16 @@ const imageCloseButton = document.getElementById(
 
 function openPopup(popup) {
   popup.classList.add("popup_opened");
-  popup.addEventListener('click', closeModalPress);
+  popup.addEventListener("click", closeModalPress);
+  document.addEventListener("keydown", closeByEsc);
 }
 
 /*закрыть попап*/
 
 function closePopup(popup) {
   popup.classList.remove("popup_opened");
-  popup.removeEventListener('click', closeModalPress);
+  popup.removeEventListener("click", closeModalPress);
+  document.removeEventListener("keydown", closeByEsc);
 }
 
 /*открыть/закрыть попап с редактированием профиля*/
@@ -196,8 +198,6 @@ cardFormElement.addEventListener("submit", submitCardForm);
 
 /*закрытие попапа при клике на esc*/
 
-document.addEventListener('keydown', closeByEsc);
-
 function closeByEsc(event) {
   if (event.key === "Escape") {
     const openedPopup = document.querySelector(".popup_opened");
@@ -205,12 +205,13 @@ function closeByEsc(event) {
   }
 }
 
+/*закрытие попапа при клике вне*/
+
 function closeModalPress(event) {
-  if (event.target.classList.contains('popup') || event.target.classList.contains('popup__close')) { 
+  if (
+    event.target.classList.contains("popup") ||
+    event.target.classList.contains("popup__close")
+  ) {
     closePopup(event.currentTarget);
- }
+  }
 }
-
-
-
-

@@ -78,15 +78,12 @@ function toggleButtonState(inputs, button, config) {
   }
 }
 
-/*функция-проверка полей и блокировки кнопки*/
+/*функция блокировки кнопки*/
 
 function buttonBlock(popup) {
   const button = popup.querySelector(".popup__button");
-  const input = popup.querySelectorAll(".popup__input");
-  if (input.textContent === undefined) {
-    button.classList.add("popup__button_inactive");
-    button.setAttribute("disabled", true);
-  }
+  button.classList.add("popup__button_inactive");
+  button.setAttribute("disabled", true);
 }
 
 setValidation(validationElements);
