@@ -83,7 +83,7 @@ const imageCloseButton = document.getElementById(
 
 /*открыть попап*/
 
-function openPopup(popup) {
+export function openPopup(popup) {
   popup.classList.add("popup_opened");
   popup.addEventListener("click", closeModalPress);
   document.addEventListener("keydown", closeByEsc);
@@ -91,7 +91,7 @@ function openPopup(popup) {
 
 /*закрыть попап*/
 
-function closePopup(popup) {
+export function closePopup(popup) {
   popup.classList.remove("popup_opened");
   popup.removeEventListener("click", closeModalPress);
   document.removeEventListener("keydown", closeByEsc);
@@ -133,7 +133,7 @@ cardFormCloseButton.addEventListener("click", function () {
 
 /*удаление карточки*/
 
-function deleteCardForm(element) {
+export function deleteCardForm(element) {
   const deletedCard = element.target.closest(".gallery__card");
   deletedCard.remove();
 }
@@ -146,55 +146,116 @@ imageCloseButton.addEventListener("click", function () {
 
 /*создание карточки*/
 
-function createCard(image, title) {
-  const newCard = templateElement.content.cloneNode(true);
-  newCard.querySelector(".gallery__image").src = image;
-  newCard.querySelector(".gallery__card-title").textContent = title;
-  newCard.querySelector(".gallery__image").alt = title;
+import {Card} from "./Card.js";
 
-  newCard
-    .querySelector(".gallery__delete-button")
-    .addEventListener("click", deleteCardForm);
-  newCard
-    .querySelector(".gallery__image")
-    .addEventListener("click", function (element) {
-      openPopup(imageWholePage);
-      popupImg.src = element.target.src;
-      figcaptionText.textContent = title;
-      popupImg.alt = title;
-    });
-  newCard
-    .querySelector(".gallery__like-button")
-    .addEventListener("click", function (evt) {
-      evt.target.classList.toggle("gallery__like-button_active");
-    });
-  return newCard;
-}
+// class Card {
+//   constructor(title, image) {
+//     this._title = title;
+//     this._image = image;
+//   }
 
-/*добавление карточки на страницу*/
+//   _getTemplate() {
+//     const cardElement = document
+//       .querySelector(".template")
+//       .content.querySelector(".gallery__card")
+//       .cloneNode(true);
+
+//     return cardElement;
+//   }
+
+//   _setEventListeners(){
+//     this._element = this._getTemplate();
+//     this._element
+//     .querySelector(".gallery__image")
+//     .addEventListener("click", (element) => {
+//       openPopup(imageWholePage);
+//       popupImg.src = element.target.src;
+//       figcaptionText.textContent = this._title;
+//       popupImg.alt = this._title;
+//     });
+
+//       this._element
+//       .querySelector(".gallery__delete-button")
+//       .addEventListener("click", deleteCardForm);
+//   }
+
+//   generateCard() {
+//     this._element = this._getTemplate();
+//     this._setEventListeners();
+//     this._element.querySelector(".gallery__image").src = this._image;
+//     this._element.querySelector(".gallery__card-title").textContent =
+//       this._title;
+//     return this._element;
+//   }
+// }
+
+initialCards.forEach((item) => {
+  const card = new Card(item.name, item.link);
+  const cardElement = card.generateCard();
+  document.querySelector(".gallery").append(cardElement);
+});
 
 function addNewCard(card, container) {
   container.prepend(card);
 }
 
-/*добавление карточки через попап*/
-
 function submitCardForm(e) {
+  const newCardElement = new Card (cardFormName.value, cardFormLink.value);
+  addNewCard(newCardElement, gallery)
   e.preventDefault();
-  const newCardElement = createCard(cardFormLink.value, cardFormName.value);
-  addNewCard(newCardElement, gallery);
   closePopup(cardFormWholePage);
   cardFormElement.reset();
 }
 
+// function createCard(image, title) {
+//   const newCard = templateElement.content.cloneNode(true);
+//   newCard.querySelector(".gallery__image").src = image;
+//   newCard.querySelector(".gallery__card-title").textContent = title;
+//   newCard.querySelector(".gallery__image").alt = title;
+
+//   newCard
+//     .querySelector(".gallery__delete-button")
+//     .addEventListener("click", deleteCardForm);
+//   newCard
+//     .querySelector(".gallery__image")
+//     .addEventListener("click", function (element) {
+//       openPopup(imageWholePage);
+//       popupImg.src = element.target.src;
+//       figcaptionText.textContent = title;
+//       popupImg.alt = title;
+//     });
+//   newCard
+//     .querySelector(".gallery__like-button")
+//     .addEventListener("click", function (evt) {
+//       evt.target.classList.toggle("gallery__like-button_active");
+//     });
+//   return newCard;
+// }
+
+/*добавление карточки на страницу*/
+
+// function addNewCard(card, container) {
+//   container.prepend(card);
+// }
+
+/*добавление карточки через попап*/
+
+// function submitCardForm(e) {
+//   e.preventDefault();
+//   const newCardElement = createCard( cardFormLink.value, cardFormName.value);
+//   addNewCard(newCardElement, gallery);
+//   closePopup(cardFormWholePage);
+//   cardFormElement.reset();
+// }
+
 /*вызов*/
 
-initialCards.forEach((card) => {
-  const newCard = createCard(card.link, card.name);
-  gallery.prepend(newCard);
-});
+// initialCards.forEach((card) => {
+//   const newCard = createCard(card.link, card.name);
+//   gallery.prepend(newCard);
+// });
 
-cardFormElement.addEventListener("submit", submitCardForm);
+// cardFormElement.addEventListener("submit", submitCardForm);
 
 /*закрытие попапа при клике на esc*/
 
