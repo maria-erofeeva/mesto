@@ -20,7 +20,7 @@ export class FormValidator {
   constructor(object, validateForm) {
     this._form = object.formSelector;
     this._button = object.submitButtonSelector;
-    this._input = object.inputSelector;
+    this._inputSelector = object.inputSelector;
     this._buttonInactive = object.inactiveButtonClass;
     this._inputError = object.inputErrorClass;
     this._activeError = object.errorClass;
@@ -31,20 +31,19 @@ export class FormValidator {
   }
 
   _showInputError(input, error) {
-    input.classList.add("popup__input_type_error");
-    error.textContent = this._input.validationMessage;
+    input.classList.add(object.inputErrorClass);
+    error.textContent = input.validationMessage;
     error.classList.add(object.errorClass);
   }
 
   _hideInputError(input, error) {
-
-    input.classList.remove("popup__input_type_error");
+    input.classList.remove(object.inputErrorClass);
     error.classList.remove(object.errorClass);
     error.textContent = "";
-  }
+}
 
   _hasInvalidInput(input) {
-    const error = this._validateForm.querySelector(`.${this._input.id}-error`);
+    const error = this._validateForm.querySelector(`.${input.id}-error`);
     if (input.validity.valid) {
       this._hideInputError(input, error);
     } else {
@@ -63,21 +62,22 @@ export class FormValidator {
     }
   }
 
-  buttonBlock() {
-    this._button.classList.add(object.inactiveButtonClass);
-    this._button.setAttribute("disabled", true);
+  buttonBlock(button) {
+    // this._validateForm.querySelectorAll('.popup__button').classList.add('popup__button_inactive');
+    // this._validateForm.querySelectorAll('.popup__button').setAttribute("disabled", true);
+    button.classList.add('popup__button_inactive');
+    button.setAttribute("disabled", true);
   }
 
   _setEventListeners() {
     this._inputList.forEach((item) => {
       item.addEventListener("input", () => {
         this._hasInvalidInput(item);
-        this._validateButtons();
-      });
-      item.addEventListener("submit", (e) => {
-        e.preventDefault;
       });
     });
+    this._validateForm.addEventListener("submit", (e) => {
+        e.preventDefault;
+      });
   }
 
   enableValidation() {

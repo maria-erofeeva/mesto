@@ -27,8 +27,6 @@ const initialCards = [
   },
 ];
 
-
-
 /*главная страница*/
 
 const currentName = document.querySelector(".profile__current-name");
@@ -45,7 +43,7 @@ const cardFormCloseButton = document.getElementById(
 
 /*попап – изменить данные*/
 
-const formProfile = document.getElementById("popup-edit-profile-form");
+export const formProfile = document.getElementById("popup-edit-profile-form");
 const popupWholePage = document.getElementById("popup-edit-profile");
 const popupName = document.querySelector(".popup__input_type_name");
 const popupDescription = document.querySelector(
@@ -69,10 +67,10 @@ const templateElement = document.querySelector(".template");
 
 /*попап – добавить карточку*/
 
-const cardFormElement = document.getElementById("popup-add-card-form");
-const cardFormName = document.getElementById("popup-add-card-title");
-const cardFormLink = document.getElementById("popup-add-card-link");
-const createButton = document.querySelector(".popup__create");
+export const cardFormElement = document.getElementById("popup-add-card-form");
+export const createButton = document.querySelector(".popup__create");
+
+
 
 /*попап – приблизить картинку*/
 
@@ -82,6 +80,14 @@ export const figcaptionText = document.querySelector(".popup__figcaption");
 const imageCloseButton = document.getElementById(
   "popup-open-image-close-button"
 );
+
+import { Card } from "./Card.js";
+import { FormValidator, validationElements } from "./FormValidator.js";
+
+const createCardForm = new FormValidator(validationElements, cardFormElement);
+createCardForm.enableValidation();
+const editProfileForm = new FormValidator(validationElements, formProfile);
+editProfileForm.enableValidation();
 
 /*открыть попап*/
 
@@ -105,6 +111,7 @@ popupProfileOpenButton.addEventListener("click", function () {
   openPopup(popupWholePage);
   popupName.value = currentName.textContent;
   popupDescription.value = currentDescription.textContent;
+  editProfileForm.buttonBlock(saveButton);
 });
 
 popupCloseButton.addEventListener("click", function () {
@@ -126,7 +133,7 @@ formProfile.addEventListener("submit", submitProfileForm);
 
 cardFormOpenButton.addEventListener("click", function () {
   openPopup(cardFormWholePage);
-  createCardForm.buttonBlock();
+  createCardForm.buttonBlock(saveButton);
 });
 
 cardFormCloseButton.addEventListener("click", function () {
@@ -148,14 +155,6 @@ imageCloseButton.addEventListener("click", function () {
 
 /*создание карточки*/
 
-import { Card } from "./Card.js";
-import { FormValidator, validationElements } from "./FormValidator.js";
-
-const createCardForm = new FormValidator(validationElements, cardFormElement);
-createCardForm.enableValidation();
-const editProfileForm = new FormValidator(validationElements, formProfile);
-editProfileForm.enableValidation();
-
 
 /*обход массива*/
 
@@ -170,6 +169,8 @@ function addNewCard(card, container) {
 }
 
 function submitCardForm(e) {
+  const cardFormName = document.getElementById("popup-add-card-title");
+  const cardFormLink = document.getElementById("popup-add-card-link");
   const newCardElement = new Card(cardFormName.value, cardFormLink.value);
   addNewCard(newCardElement, gallery);
   e.preventDefault();
