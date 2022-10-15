@@ -49,28 +49,16 @@ const popupName = document.querySelector(".popup__input_type_name");
 const popupDescription = document.querySelector(
   ".popup__input_type_description"
 );
-const formInput = document.querySelector(".popup__input");
-const nameInputError = formProfile.querySelector(`.${popupName.id}-error`);
-const descriptionInputError = formProfile.querySelector(
-  `.${popupDescription.id}-error`
-);
 const saveButton = document.querySelector(".popup__save");
 
 /*галерея*/
 
 const gallery = document.querySelector(".gallery");
-const galleryCard = document.querySelector(".gallery__card");
-const galleryImage = document.querySelector(".gallery__image");
-const galleryFig = document.querySelector(".gallery__card-title");
-const likeButton = document.getElementById("gallery-like-button");
-const templateElement = document.querySelector(".template");
 
 /*попап – добавить карточку*/
 
 export const cardFormElement = document.getElementById("popup-add-card-form");
 export const createButton = document.querySelector(".popup__create");
-
-
 
 /*попап – приблизить картинку*/
 
@@ -80,6 +68,8 @@ export const figcaptionText = document.querySelector(".popup__figcaption");
 const imageCloseButton = document.getElementById(
   "popup-open-image-close-button"
 );
+
+/*импорт*/
 
 import { Card } from "./Card.js";
 import { FormValidator, validationElements } from "./FormValidator.js";
@@ -153,9 +143,6 @@ imageCloseButton.addEventListener("click", function () {
   closePopup(imageWholePage);
 });
 
-/*создание карточки*/
-
-
 /*обход массива*/
 
 initialCards.forEach((item) => {
@@ -168,14 +155,24 @@ function addNewCard(card, container) {
   container.prepend(card);
 }
 
+/*создать карточку*/
+
+function createNewCard(name, link) {
+  const newCard = new Card (name, link);
+  return newCard;
+}
+
+/*создание карточки через попап*/
+
 function submitCardForm(e) {
   const cardFormName = document.getElementById("popup-add-card-title");
   const cardFormLink = document.getElementById("popup-add-card-link");
-  const newCardElement = new Card(cardFormName.value, cardFormLink.value);
-  addNewCard(newCardElement, gallery);
-  e.preventDefault();
+  const newCardElement = createNewCard(cardFormName.value, cardFormLink.value);
+  const card = newCardElement.generateCard();
+  addNewCard(card, gallery);
   closePopup(cardFormWholePage);
   cardFormElement.reset();
+  e.preventDefault();
 }
 
 cardFormElement.addEventListener("submit", submitCardForm);
