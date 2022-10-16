@@ -1,12 +1,3 @@
-export const validationElements = {
-  formSelector: ".popup__form",
-  inputSelector: ".popup__input",
-  submitButtonSelector: ".popup__button",
-  inactiveButtonClass: "popup__button_inactive",
-  inputErrorClass: "popup__input_type_error",
-  errorClass: "popup__input-error_active",
-};
-
 export class FormValidator {
   _form;
   _buttonSelector;
@@ -18,7 +9,6 @@ export class FormValidator {
   _inputList;
 
   constructor(object, validateForm) {
-    this._form = object.formSelector;
     this._buttonSelector = object.submitButtonSelector;
     this._inputSelector = object.inputSelector;
     this._buttonInactive = object.inactiveButtonClass;
@@ -58,10 +48,9 @@ export class FormValidator {
       this._button.classList.remove(this._buttonInactive);
       this._button.removeAttribute("disabled", true);
     } else {
-      this._button.classList.add(this._buttonInactive);
-      this._button.setAttribute("disabled", true);
+      this.buttonBlock();
     }
-  }
+}
 
   buttonBlock() {
     this._button.classList.add(this._buttonInactive);
@@ -75,12 +64,14 @@ export class FormValidator {
         this._validateButtons();
       });
     });
-    this._validateForm.addEventListener("submit", (e) => {
-      e.preventDefault;
-    });
+    // this._validateForm.addEventListener("submit", (e) => {
+    //   e.preventDefault;
+    // });
   }
 
   enableValidation() {
     this._setEventListeners();
   }
 }
+
+import {validationElements} from './index.js'
