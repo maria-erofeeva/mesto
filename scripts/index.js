@@ -27,7 +27,7 @@ const initialCards = [
   },
 ];
 
-export const validationElements = {
+const validationElements = {
   formSelector: ".popup__form",
   inputSelector: ".popup__input",
   submitButtonSelector: ".popup__button",
@@ -58,7 +58,6 @@ const popupName = document.querySelector(".popup__input_type_name");
 const popupDescription = document.querySelector(
   ".popup__input_type_description"
 );
-const saveButton = document.querySelector(".popup__save");
 
 /*галерея*/
 
@@ -86,6 +85,7 @@ const createCardForm = new FormValidator(validationElements, cardFormElement);
 createCardForm.enableValidation();
 const editProfileForm = new FormValidator(validationElements, formProfile);
 editProfileForm.enableValidation();
+const template = document.querySelector(".template");
 
 /*открыть попап*/
 
@@ -131,7 +131,7 @@ formProfile.addEventListener("submit", submitProfileForm);
 
 cardFormOpenButton.addEventListener("click", function () {
   openPopup(cardFormWholePage);
-  createCardForm.buttonBlock(saveButton);
+  createCardForm.buttonBlock();
 });
 
 cardFormCloseButton.addEventListener("click", function () {
@@ -148,8 +148,8 @@ imageCloseButton.addEventListener("click", function () {
 
 /*создать карточку*/
 
-function createNewCard(name, link) {
-  const newCard = new Card (name, link);
+function createNewCard(name, link, template) {
+  const newCard = new Card (name, link, template);
   const cardElement = newCard.generateCard();
   return cardElement;
 }
@@ -157,7 +157,7 @@ function createNewCard(name, link) {
 /*обход массива*/
 
 initialCards.forEach((item) => {
-  const card = createNewCard(item.name, item.link);
+  const card = createNewCard(item.name, item.link, template);
   gallery.append(card);
 });
 
@@ -170,7 +170,7 @@ function addNewCard(card, container) {
 function submitCardForm(e) {
   const cardFormName = document.getElementById("popup-add-card-title");
   const cardFormLink = document.getElementById("popup-add-card-link");
-  const newCardElement = createNewCard(cardFormName.value, cardFormLink.value);
+  const newCardElement = createNewCard(cardFormName.value, cardFormLink.value, template);
   addNewCard(newCardElement, gallery);
   closePopup(cardFormWholePage);
   cardFormElement.reset();

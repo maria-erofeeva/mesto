@@ -73,5 +73,3 @@ export class FormValidator {
     this._setEventListeners();
   }
 }
-
-import {validationElements} from './index.js'

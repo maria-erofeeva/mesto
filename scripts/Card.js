@@ -6,16 +6,14 @@ import {
 } from "./index.js";
 
 export class Card {
-  constructor(title, image) {
+  constructor(title, image, template) {
     this._title = title;
     this._image = image;
+    this._template = template;
   }
 
   _getTemplate() {
-    const cardElement = document
-      .querySelector(".template")
-      .content.querySelector(".gallery__card")
-      .cloneNode(true);
+    const cardElement = this._template.content.querySelector(".gallery__card").cloneNode(true);
 
     return cardElement;
   }
@@ -43,13 +41,12 @@ export class Card {
 
   _setEventListener() {
     this._cardImage.addEventListener("click", (element) => {
-      this._openPopup(element);
+      this._openPopup();
     });
     this._element
       .querySelector(".gallery__delete-button")
       .addEventListener("click", this._deleteCard);
-    this._element
-      .querySelector(".gallery__like-button")
+    this._likeButton
       .addEventListener("click", this._likeCard);
   }
 
