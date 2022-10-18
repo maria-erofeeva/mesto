@@ -157,7 +157,7 @@ function createNewCard(name, link, template) {
 /*обход массива*/
 
 initialCards.forEach((item) => {
-  const card = createNewCard(item.name, item.link, template);
+  const card = createNewCard(item.name, item.link, '.template');
   gallery.append(card);
 });
 
@@ -170,7 +170,7 @@ function addNewCard(card, container) {
 function submitCardForm(e) {
   const cardFormName = document.getElementById("popup-add-card-title");
   const cardFormLink = document.getElementById("popup-add-card-link");
-  const newCardElement = createNewCard(cardFormName.value, cardFormLink.value, template);
+  const newCardElement = createNewCard(cardFormName.value, cardFormLink.value, '.template');
   addNewCard(newCardElement, gallery);
   closePopup(cardFormWholePage);
   cardFormElement.reset();

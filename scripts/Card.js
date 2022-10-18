@@ -6,14 +6,14 @@ import {
 } from "./index.js";
 
 export class Card {
-  constructor(title, image, template) {
+  constructor(title, image, templateSelector) {
     this._title = title;
     this._image = image;
-    this._template = template;
+    this._templateSelector = templateSelector;
   }
 
   _getTemplate() {
-    const cardElement = this._template.content.querySelector(".gallery__card").cloneNode(true);
+    const cardElement = document.querySelector(this._templateSelector).content.querySelector('.gallery__card').cloneNode(true);
 
     return cardElement;
   }
