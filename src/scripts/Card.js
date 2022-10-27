@@ -3,7 +3,7 @@ import {
   imageWholePage,
   popupImg,
   figcaptionText,
-} from "../src/index.js";
+} from "../index.js";
 
 export class Card {
   constructor(title, image, templateSelector) {

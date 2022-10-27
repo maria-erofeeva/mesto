@@ -1,29 +1,40 @@
+/*index.js*/
+
+import './index.css';
+
 /*объявление изначального массива*/
+
+import baikal from './images/baikal-min.jpg';
+import arkhangelsk from './images/arkhangelsk-min.jpg';
+import elbrus from './images/elbrus-min.jpg';
+import kalyazin from './images/kalyazin-min.jpg';
+import karachaevsk from './images/karachaevsk-min.jpg';
+import karelia from './images/karelia-min.jpg';
 
 const initialCards = [
   {
     name: "Байкал",
-    link: "images/baikal-min.jpg",
+    link: baikal,
   },
   {
     name: "Архангельск",
-    link: "images/arkhangelsk-min.jpg",
+    link: arkhangelsk,
   },
   {
     name: "Эльбрус",
-    link: "images/elbrus-min.jpg",
+    link: elbrus,
   },
   {
     name: "Калязинская колокольня",
-    link: "images/kalyazin-min.jpg",
+    link: kalyazin,
   },
   {
     name: "Карачаевск",
-    link: "images/karachaevsk-min.jpg",
+    link: karachaevsk,
   },
   {
     name: "Карелия",
-    link: "images/karelia-min.jpg",
+    link: karelia,
   },
 ];
 
@@ -78,18 +89,14 @@ const imageCloseButton = document.getElementById(
 
 /*импорт*/
 
-import { Card } from "../scripts/Card.js";
-import { FormValidator } from "./FormValidator.js";
+import { Card } from "./scripts/Card.js";
+import { FormValidator } from "./scripts/FormValidator.js";
 
 const createCardForm = new FormValidator(validationElements, cardFormElement);
 createCardForm.enableValidation();
 const editProfileForm = new FormValidator(validationElements, formProfile);
 editProfileForm.enableValidation();
 const template = document.querySelector(".template");
-
-// index.js
-
-import '../styles/index.css'; // добавьте импорт главного файла стилей
 
 /*открыть попап*/
 
