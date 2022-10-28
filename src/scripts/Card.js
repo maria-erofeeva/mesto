@@ -1,15 +1,11 @@
-import {
-  openPopup,
-  imageWholePage,
-  popupImg,
-  figcaptionText,
-} from "../index.js";
+import { Popup } from './Popup.js';
 
 export class Card {
-  constructor(title, image, templateSelector) {
+  constructor(title, image, templateSelector, handleCardClick) {
     this._title = title;
     this._image = image;
     this._templateSelector = templateSelector;
+    this._handleCardClick = handleCardClick;
   }
 
   _getTemplate() {
@@ -39,8 +35,8 @@ export class Card {
   }
 
   _setEventListener() {
-    this._cardImage.addEventListener("click", (element) => {
-      this._openPopup();
+    this._cardImage.addEventListener('click', () => {
+      this._handleCardClick(this._card);
     });
     this._element
       .querySelector(".gallery__delete-button")
@@ -49,10 +45,10 @@ export class Card {
       .addEventListener("click", this._likeCard);
   }
 
-  _openPopup() {
-    openPopup(imageWholePage);
-    popupImg.src = this._image;
-    figcaptionText.textContent = this._title;
-    popupImg.alt = this._title;
-  }
+  // _openPopup() {
+  //   openPopup(imageWholePage);
+  //   popupImg.src = this._image;
+  //   figcaptionText.textContent = this._title;
+  //   popupImg.alt = this._title;
+  // }
 }

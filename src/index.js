@@ -39,6 +39,7 @@ const initialCards = [
 ];
 
 const validationElements = {
+  
   formSelector: ".popup__form",
   inputSelector: ".popup__input",
   submitButtonSelector: ".popup__button",
@@ -192,20 +193,20 @@ cardFormElement.addEventListener("submit", submitCardForm);
 
 /*закрытие попапа при клике на esc*/
 
-function closeByEsc(event) {
-  if (event.key === "Escape") {
-    const openedPopup = document.querySelector(".popup_opened");
-    closePopup(openedPopup);
-  }
-}
+// function closeByEsc(event) {
+//   if (event.key === "Escape") {
+//     const openedPopup = document.querySelector(".popup_opened");
+//     closePopup(openedPopup);
+//   }
+// }
 
 /*закрытие попапа при клике вне*/
 
-function closeModalPress(event) {
-  if (
-    event.target.classList.contains("popup") ||
-    event.target.classList.contains("popup__close")
-  ) {
-    closePopup(event.currentTarget);
-  }
-}
+// function closeModalPress(event) {
+//   if (
+//     event.target.classList.contains("popup") ||
+//     event.target.classList.contains("popup__close")
+//   ) {
+//     closePopup(event.currentTarget);
+//   }
+// }
