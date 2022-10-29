@@ -40,7 +40,7 @@ editProfileForm.enableValidation();
 
 /*попап на весь экран*/
 
-const popupImage = new PopupWithImage(popupWholePage);
+const popupImage = new PopupWithImage(".popup_type_image");
 popupImage.setEventListeners();
 
 function handleCardClick({ name: name, link: link }) {
@@ -50,7 +50,7 @@ function handleCardClick({ name: name, link: link }) {
 /*открыть попап редактирование профиля*/
 
 const popupEditProfile = new PopupWithForm(
-  formProfile,
+  ".popup__form_edit-profile",
   handleProfileFormSubmit
 );
 popupEditProfile.setEventListeners();
@@ -92,7 +92,7 @@ galleryCards.renderItems();
 
 /*открыть попап*/
 
-const popupAddCard = new PopupWithForm(cardFormWholePage, handleCardFormSubmit);
+const popupAddCard = new PopupWithForm(".popup__add-card", handleCardFormSubmit);
 cardFormOpenButton.addEventListener("click", () => {
   popupAddCard.open();
   addCardButton.buttonBlock();

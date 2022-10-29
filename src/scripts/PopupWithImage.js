@@ -5,8 +5,8 @@ import { popupImg, figcaptionText } from "../utils/constants.js";
 export class PopupWithImage extends Popup {
   constructor(popupSelector) {
     super(popupSelector);
-    this._image = this._popupSelector.querySelector(".gallery__image");
-    this._title = this._popupSelector.querySelector(".gallery__card-title");
+    this._image = document.querySelector(".gallery__image");
+    this._title = document.querySelector(".gallery__card-title");
   }
 
   open({ name, link }) {

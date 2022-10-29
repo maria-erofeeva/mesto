@@ -11,12 +11,12 @@ export class PopupWithForm extends Popup {
     this._popupFormInputs = this._cardElement.querySelectorAll(
       validationElements.inputSelector
     );
-    this._popupForm = this._popupSelector.querySelector('.popup__form');
+    this._popupForm = document.querySelector('.popup__form');
   }
 
   _getInputValues() {
     this._formValues = {};
-    this._inputsList = Array.from(this._popupForm.querySelectorAll('.popup__input')); 
+    this._inputsList = Array.from(document.querySelectorAll('.popup__input')); 
     this._inputsList.forEach((input) => {
       this._formValues[input.name] = input.value;
     });
