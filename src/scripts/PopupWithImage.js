@@ -1,9 +1,6 @@
-export { Popup } from "../scripts/Popup.js";
+import { Popup } from "../scripts/Popup.js";
 
-import {
-  popupImg,
-  figcaptionText,
-} from "../index.js";
+import { popupImg, figcaptionText } from "../utils/constants.js";
 
 export class PopupWithImage extends Popup {
   constructor(popupSelector) {

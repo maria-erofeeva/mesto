@@ -1,5 +1,3 @@
-import { Popup } from './Popup.js';
-
 export class Card {
   constructor(title, image, templateSelector, handleCardClick) {
     this._title = title;
@@ -36,7 +34,7 @@ export class Card {
 
   _setEventListener() {
     this._cardImage.addEventListener('click', () => {
-      this._handleCardClick(this._card);
+      this._handleCardClick();
     });
     this._element
       .querySelector(".gallery__delete-button")

@@ -11,7 +11,7 @@ class Section {
     });
   }
 
-  addItem(item) {
-    this._container.append(item);
+  addItem() {
+    this._container.append(this._getTemplate);
   }
 }

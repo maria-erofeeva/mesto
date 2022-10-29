@@ -1,5 +1,5 @@
-export { Popup } from "../scripts/Popup.js";
-export { validationElements } from "../index.js";
+import { Popup } from "../scripts/Popup.js";
+import { validationElements } from "../utils/constants.js";
 
 export class PopupWithForm extends Popup {
   constructor(popupSelector, submitForm) {
