@@ -60,6 +60,7 @@ export const cardFormWholePage = document.getElementById("popup-add-card");
 export const cardFormCloseButton = document.getElementById(
   "popup-add-card-close-button"
 );
+export const addCardButton = document.querySelector(".popup__create");
 
 /*попап – изменить данные*/
 
@@ -69,6 +70,10 @@ export const popupName = document.querySelector(".popup__input_type_name");
 export const popupDescription = document.querySelector(
   ".popup__input_type_description"
 );
+
+export const popupSaveName = document.querySelector(
+    ".popup__save"
+  );
 
 /*галерея*/
 

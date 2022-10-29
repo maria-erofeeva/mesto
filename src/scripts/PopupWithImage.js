@@ -1,4 +1,4 @@
-import { Popup } from "../scripts/Popup.js";
+import { Popup } from "./Popup.js";
 
 import { popupImg, figcaptionText } from "../utils/constants.js";
 
@@ -9,10 +9,10 @@ export class PopupWithImage extends Popup {
     this._image = this._popupSelector.querySelector(".gallery__card-title");
   }
 
-  open() {
+  open({ name, link }) {
     super.open();
-    popupImg.src = this._image;
-    figcaptionText.textContent = this._title;
-    popupImg.alt = this._title;
+    popupImg.src = link;
+    figcaptionText.textContent = name;
+    popupImg.alt = name;
   }
 }

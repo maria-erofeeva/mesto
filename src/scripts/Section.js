@@ -1,8 +1,8 @@
-class Section {
+export class Section {
   constructor({ items, renderer }, containerSelector) {
     this._addedData = items;
     this._renderer = renderer;
-    this._container = document.querySelector(containerSelector);
+    this._container = containerSelector;
   }
 
   _getTemplate() {
@@ -11,7 +11,7 @@ class Section {
     });
   }
 
-  addItem() {
-    this._container.append(this._getTemplate);
+  addItem(item) {
+    this._container.append(item);
   }
 }

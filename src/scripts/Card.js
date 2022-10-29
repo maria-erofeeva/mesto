@@ -7,7 +7,7 @@ export class Card {
   }
 
   _getTemplate() {
-    const cardElement = document.querySelector(this._templateSelector).content.querySelector('.gallery__card').cloneNode(true);
+    const cardElement = this._templateSelector.querySelector('.gallery__card').cloneNode(true);
     return cardElement;
   }
 
@@ -43,10 +43,10 @@ export class Card {
       .addEventListener("click", this._likeCard);
   }
 
-  // _openPopup() {
-  //   openPopup(imageWholePage);
-  //   popupImg.src = this._image;
-  //   figcaptionText.textContent = this._title;
-  //   popupImg.alt = this._title;
-  // }
+  _handleCardClick = function() {
+    openPopup(imageWholePage);
+    popupImg.src = this._image;
+    figcaptionText.textContent = this._title;
+    popupImg.alt = this._title;
+  }
 }
