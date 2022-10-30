@@ -6,7 +6,7 @@ export class PopupWithForm extends Popup {
     super(popupSelector);
     this._submitForm = submitForm;
     this._cardElement = document
-      .querySelector(this._popupSelector)
+      .querySelector(popupSelector)
       .content.querySelector(".gallery__card");
     this._popupFormInputs = this._cardElement.querySelectorAll(
       validationElements.inputSelector
