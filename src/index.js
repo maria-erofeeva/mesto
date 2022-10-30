@@ -69,7 +69,7 @@ const user = new UserInfo({
 
 popupProfileOpenButton.addEventListener("click", () => {
   popupEditProfile.open();
-  popupSaveName.disableButton();
+  editProfileForm.buttonBlock();
   const userData = user.getUserInfo();
   popupName.value = userData.name;
   popupDescription.value = userData.job;
@@ -99,10 +99,12 @@ const popupAddCard = new PopupWithForm(popupAddingCard, handleCardFormSubmit);
 
 cardFormOpenButton.addEventListener("click", () => {
   popupAddCard.open();
-  addCardButton.buttonBlock();
+  createCardForm.buttonBlock();
 });
 
 console.log(popupAddCard);
+console.log(cardFormOpenButton);
+console.log(createCardForm);
 
 popupAddCard.setEventListeners();
 function handleCardFormSubmit(data) {
