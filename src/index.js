@@ -22,7 +22,7 @@ import {
   popupSaveName,
   template,
   imageWholePage,
-  popupAddingCard
+  // popupAddingCard
 } from "./utils/constants.js";
 
 /*импорт модулей*/
@@ -94,6 +94,8 @@ const galleryCards = new Section(
 galleryCards.getTemplate();
 
 /*открыть попап*/
+
+const popupAddingCard = new Popup('.popup__add-card');
 
 const popupAddCard = new PopupWithForm(popupAddingCard, handleCardFormSubmit);
 
