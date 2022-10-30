@@ -22,7 +22,7 @@ import {
   popupSaveName,
   template,
   imageWholePage,
-  // popupAddingCard
+  popupAddingCard
 } from "./utils/constants.js";
 
 /*импорт модулей*/
@@ -95,7 +95,11 @@ galleryCards.getTemplate();
 
 /*открыть попап*/
 
-const popupAddingCard = new Popup('.popup__add-card');
+// const popupAddingCard = new Popup('.popup__add-card');
+
+function handleCardFormSubmit(data) {
+  gallery.prepend(generateNewCard(data));
+}
 
 const popupAddCard = new PopupWithForm(popupAddingCard, handleCardFormSubmit);
 
@@ -106,9 +110,6 @@ cardFormOpenButton.addEventListener("click", () => {
 });
 
 popupAddCard.setEventListeners();
-function handleCardFormSubmit(data) {
-  gallery.prepend(generateNewCard(data));
-}
 
 function generateNewCard(data) {
   const newCard = new Card(data.name, data.link, template, handleCardClick);
