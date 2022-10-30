@@ -5,7 +5,7 @@ export class Section {
     this._container = containerSelector;
   }
 
-  _getTemplate() {
+  getTemplate() {
     this._addedData.forEach((item) => {
       this._renderer(item);
     });

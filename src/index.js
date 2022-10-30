@@ -20,6 +20,9 @@ import {
   initialCards,
   addCardButton,
   popupSaveName,
+  template,
+  imageWholePage,
+  popupAddingCard
 } from "./utils/constants.js";
 
 /*импорт модулей*/
@@ -43,14 +46,14 @@ editProfileForm.enableValidation();
 const popupImage = new PopupWithImage(".popup_type_image");
 popupImage.setEventListeners();
 
-function handleCardClick({ name: name, link: link }) {
-  popupImage.open({ name: name, link: link });
+function handleCardClick({name:name, link:link}) {
+  popupImage.open({name:name, link:link});
 }
 
 /*открыть попап редактирование профиля*/
 
 const popupEditProfile = new PopupWithForm(
-  ".popup__form_edit-profile",
+  popupWholePage,
   handleProfileFormSubmit
 );
 popupEditProfile.setEventListeners();
@@ -82,21 +85,24 @@ const galleryCards = new Section(
   {
     items: initialCards,
     renderer: (item) => {
-      galleryCards.addItem(createCard(item));
+      galleryCards.addItem(generateNewCard(item));
     },
   },
   gallery
 );
 
-galleryCards.renderItems();
+galleryCards.getTemplate();
 
 /*открыть попап*/
 
-const popupAddCard = new PopupWithForm(".popup__add-card", handleCardFormSubmit);
+const popupAddCard = new PopupWithForm(popupAddingCard, handleCardFormSubmit);
+
 cardFormOpenButton.addEventListener("click", () => {
   popupAddCard.open();
   addCardButton.buttonBlock();
 });
+
+console.log(popupAddCard);
 
 popupAddCard.setEventListeners();
 function handleCardFormSubmit(data) {

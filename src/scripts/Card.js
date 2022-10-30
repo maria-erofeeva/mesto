@@ -7,7 +7,7 @@ export class Card {
   }
 
   _getTemplate() {
-    const cardElement = this._templateSelector.querySelector('.gallery__card').cloneNode(true);
+    const cardElement = this._templateSelector.content.querySelector('.gallery__card').cloneNode(true);
     return cardElement;
   }
 
@@ -34,7 +34,7 @@ export class Card {
 
   _setEventListener() {
     this._cardImage.addEventListener('click', () => {
-      this._handleCardClick();
+      this._handleCardClick({name:this._name, link:this._link});
     });
     this._element
       .querySelector(".gallery__delete-button")
@@ -43,10 +43,10 @@ export class Card {
       .addEventListener("click", this._likeCard);
   }
 
-  _handleCardClick = function() {
-    openPopup(imageWholePage);
-    popupImg.src = this._image;
-    figcaptionText.textContent = this._title;
-    popupImg.alt = this._title;
-  }
+  // _handleCardClick = function(name, link) {
+  //   this._element);
+  //   popupImg.src = this._image;
+  //   figcaptionText.textContent = this._title;
+  //   popupImg.alt = this._title;
+  // }
 }

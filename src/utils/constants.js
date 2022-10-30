@@ -61,6 +61,7 @@ export const cardFormCloseButton = document.getElementById(
   "popup-add-card-close-button"
 );
 export const addCardButton = document.querySelector(".popup__create");
+export const template = document.querySelector(".template");
 
 /*попап – изменить данные*/
 
@@ -78,6 +79,9 @@ export const popupSaveName = document.querySelector(
 /*галерея*/
 
 export const gallery = document.querySelector(".gallery");
+export const openedImage = document.querySelector(".popup_type_image");
+
+export const popupAddingCard = document.querySelector('.popup__add-card')
 
 /*попап – добавить карточку*/
 
