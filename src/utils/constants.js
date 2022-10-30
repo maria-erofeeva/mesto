@@ -83,6 +83,8 @@ export const openedImage = document.querySelector(".popup_type_image");
 
 export const popupAddingCard = document.querySelector('.popup__add-card')
 
+
+
 /*попап – добавить карточку*/
 
 export const cardFormElement = document.getElementById("popup-add-card-form");
