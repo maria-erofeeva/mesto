@@ -49,7 +49,7 @@ function handleCardClick({name: name,
 /*открыть попап редактирование профиля*/
 
 const popupEditProfile = new PopupWithForm(
-  ".popup__form_edit-profile",
+  ".popup_edit-profile",
   handleProfileFormSubmit
 );
 popupEditProfile.setEventListeners();
@@ -107,7 +107,7 @@ function handleCardFormSubmit(data) {
 
 /*открыть попап*/
 
-const popupAddCard = new PopupWithForm('.popup__add-card', handleCardFormSubmit);
+const popupAddCard = new PopupWithForm('.popup_add-card', handleCardFormSubmit);
 
 cardFormOpenButton.addEventListener("click", () => {
   popupAddCard.open();
