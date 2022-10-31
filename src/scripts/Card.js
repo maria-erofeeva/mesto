@@ -1,7 +1,7 @@
 export class Card {
-  constructor(title, image, templateSelector, handleCardClick) {
-    this._title = title;
-    this._image = image;
+  constructor({name, link}, templateSelector, handleCardClick) {
+    this._name = name;
+    this._link = link;
     this._templateSelector = templateSelector;
     this._handleCardClick = handleCardClick;
   }
@@ -25,10 +25,10 @@ export class Card {
     this._cardImage = this._element.querySelector(".gallery__image");
     this._likeButton = this._element.querySelector(".gallery__like-button");
     this._setEventListener();
-    this._cardImage.src = this._image;
+    this._cardImage.src = this._link;
     this._element.querySelector(".gallery__card-title").textContent =
-      this._title;
-    this._element.querySelector(".gallery__image").alt = this._title;
+      this._name;
+    this._element.querySelector(".gallery__image").alt = this._name;
     return this._element;
   }
 
@@ -43,10 +43,4 @@ export class Card {
       .addEventListener("click", this._likeCard);
   }
 
-  // _handleCardClick = function(name, link) {
-  //   this._element);
-  //   popupImg.src = this._image;
-  //   figcaptionText.textContent = this._title;
-  //   popupImg.alt = this._title;
-  // }
 }

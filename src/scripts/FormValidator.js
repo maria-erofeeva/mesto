@@ -64,9 +64,7 @@ export class FormValidator {
         this._validateButtons();
       });
     });
-    // this._validateForm.addEventListener("submit", (e) => {
-    //   e.preventDefault;
-    // });
+
   }
 
   enableValidation() {

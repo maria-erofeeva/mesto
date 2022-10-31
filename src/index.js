@@ -10,19 +10,13 @@ import {
   currentDescription,
   popupProfileOpenButton,
   cardFormOpenButton,
-  cardFormWholePage,
   formProfile,
-  popupWholePage,
   popupName,
   popupDescription,
   gallery,
   cardFormElement,
   initialCards,
-  addCardButton,
-  popupSaveName,
   template,
-  imageWholePage,
-  popupAddingCard
 } from "./utils/constants.js";
 
 /*импорт модулей*/
@@ -41,19 +35,21 @@ createCardForm.enableValidation();
 const editProfileForm = new FormValidator(validationElements, formProfile);
 editProfileForm.enableValidation();
 
-/*попап на весь экран*/
+/*зум*/
 
 const popupImage = new PopupWithImage(".popup_type_image");
 popupImage.setEventListeners();
 
-function handleCardClick({name:name, link:link}) {
-  popupImage.open({name:name, link:link});
+function handleCardClick({name: name, 
+  link: link}) {
+  popupImage.open({name: name, 
+    link: link});
 }
 
 /*открыть попап редактирование профиля*/
 
 const popupEditProfile = new PopupWithForm(
-  popupWholePage,
+  ".popup__form_edit-profile",
   handleProfileFormSubmit
 );
 popupEditProfile.setEventListeners();
@@ -93,15 +89,25 @@ const galleryCards = new Section(
 
 galleryCards.getTemplate();
 
-/*открыть попап*/
+/*сгенерировать новую карту*/
 
-// const popupAddingCard = new Popup('.popup__add-card');
-
-function handleCardFormSubmit(data) {
-  gallery.prepend(generateNewCard(data));
+function generateNewCard(data) {
+  const newCard = new Card({name: data.name, link: data.link}, template, handleCardClick);
+  const cardElement = newCard.generateCard();
+  return cardElement;
+  
 }
 
-const popupAddCard = new PopupWithForm(popupAddingCard, handleCardFormSubmit);
+function handleCardFormSubmit(data) {
+  const newElement = generateNewCard(data);
+  console.log(newElement);
+  gallery.prepend(newElement);
+  console.log(data);
+}
+
+/*открыть попап*/
+
+const popupAddCard = new PopupWithForm('.popup__add-card', handleCardFormSubmit);
 
 cardFormOpenButton.addEventListener("click", () => {
   popupAddCard.open();
@@ -110,9 +116,3 @@ cardFormOpenButton.addEventListener("click", () => {
 });
 
 popupAddCard.setEventListeners();
-
-function generateNewCard(data) {
-  const newCard = new Card(data.name, data.link, template, handleCardClick);
-  const cardElement = newCard.generateCard();
-  return cardElement;
-}

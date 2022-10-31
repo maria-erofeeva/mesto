@@ -7,9 +7,6 @@ import kalyazin from "../images/kalyazin-min.jpg";
 import karachaevsk from "../images/karachaevsk-min.jpg";
 import karelia from "../images/karelia-min.jpg";
 
-import { FormValidator } from '../scripts/FormValidator.js'
-import { PopupWithImage } from '../scripts/PopupWithImage.js'
-
 /*объявление изначального массива*/
 
 export const initialCards = [
@@ -97,10 +94,3 @@ export const figcaptionText = document.querySelector(".popup__figcaption");
 export const imageCloseButton = document.getElementById(
   "popup-open-image-close-button"
 );
-
-export const createCardForm = new FormValidator(validationElements, cardFormElement);
-createCardForm.enableValidation();
-export const editProfileForm = new FormValidator(validationElements, formProfile);
-editProfileForm.enableValidation();
-
-export const popupOpenImage = new PopupWithImage(popupImg);
