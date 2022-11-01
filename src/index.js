@@ -16,7 +16,7 @@ import {
   gallery,
   cardFormElement,
   initialCards,
-  template,
+  cardTemplate,
 } from "./utils/constants.js";
 
 /*импорт модулей*/
@@ -30,20 +30,21 @@ import { UserInfo } from "./scripts/UserInfo.js";
 
 /*валидация всех форм*/
 
-const createCardForm = new FormValidator(validationElements, cardFormElement);
-createCardForm.enableValidation();
-const editProfileForm = new FormValidator(validationElements, formProfile);
-editProfileForm.enableValidation();
+const cardFormValidator = new FormValidator(
+  validationElements,
+  cardFormElement
+);
+cardFormValidator.enableValidation();
+const profileFormValidator = new FormValidator(validationElements, formProfile);
+profileFormValidator.enableValidation();
 
 /*зум*/
 
 const popupImage = new PopupWithImage(".popup_type_image");
 popupImage.setEventListeners();
 
-function handleCardClick({name: name, 
-  link: link}) {
-  popupImage.open({name: name, 
-    link: link});
+function handleCardClick({ name, link }) {
+  popupImage.open({ name, link });
 }
 
 /*открыть попап редактирование профиля*/
@@ -65,7 +66,7 @@ const user = new UserInfo({
 
 popupProfileOpenButton.addEventListener("click", () => {
   popupEditProfile.open();
-  editProfileForm.buttonBlock();
+  profileFormValidator.disableButton();
   const userData = user.getUserInfo();
   popupName.value = userData.name;
   popupDescription.value = userData.description;
@@ -87,32 +88,35 @@ const galleryCards = new Section(
   gallery
 );
 
-galleryCards.getTemplate();
+galleryCards.renderItems();
 
 /*сгенерировать новую карту*/
 
 function generateNewCard(data) {
-  const newCard = new Card({name: data.name, link: data.link}, template, handleCardClick);
+  const newCard = new Card(
+    { name: data.name, link: data.link },
+    cardTemplate,
+    handleCardClick
+  );
   const cardElement = newCard.generateCard();
   return cardElement;
-  
 }
 
 function handleCardFormSubmit(data) {
-  const newElement = generateNewCard(data);
-  console.log(newElement);
-  gallery.prepend(newElement);
-  console.log(data);
+  const newElement = generateNewCard({
+    name: data.name,
+    link: data.link,
+  });
+  galleryCards.addItem(newElement);
 }
 
 /*открыть попап*/
 
-const popupAddCard = new PopupWithForm('.popup_add-card', handleCardFormSubmit);
+const popupAddCard = new PopupWithForm(".popup_add-card", handleCardFormSubmit);
 
 cardFormOpenButton.addEventListener("click", () => {
   popupAddCard.open();
-  console.log(popupAddCard);
-  createCardForm.buttonBlock();
+  cardFormValidator.disableButton();
 });
 
 popupAddCard.setEventListeners();
