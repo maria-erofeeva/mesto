@@ -2,6 +2,7 @@ export class Popup {
   constructor(popupSelector) {
     this._popupSelector = popupSelector;
     this._popup = document.querySelector(popupSelector);
+    this._handleEscClose = this._handleEscClose.bind(this);
   }
 
   open() {
@@ -14,7 +15,7 @@ export class Popup {
     document.removeEventListener("keydown", this._handleEscClose);
   }
 
-  _handleEscClose(event) {
+  _handleEscClose (event) {
     if (event.key === "Escape") {
       this.close();
     }
@@ -27,7 +28,6 @@ export class Popup {
         evt.target.classList.contains("popup__close-icon")
       ) {
         this.close();
-        evt.preventDefault();
       }
     });
   }

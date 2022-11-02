@@ -4,6 +4,8 @@ export class Card {
     this._link = link;
     this._templateSelector = templateSelector;
     this._handleCardClick = handleCardClick;
+    this._deleteCard = this._deleteCard.bind(this);
+    this._handleLike = this._handleLike.bind(this);
   }
 
   _getTemplate() {
@@ -13,13 +15,12 @@ export class Card {
     return cardElement;
   }
 
-  _handleLike = function (evt) {
-    evt.target.classList.toggle("gallery__like-button_active");
+  _handleLike = function () {
+    this._likeButton.classList.toggle("gallery__like-button_active");
   };
 
   generateCard() {
     this._element = this._getTemplate();
-    this._galleryCard = this._element.querySelector(".gallery__card");
     this._cardImage = this._element.querySelector(".gallery__image");
     this._likeButton = this._element.querySelector(".gallery__like-button");
     this._deleteButton = this._element.querySelector(".gallery__delete-button");
@@ -32,7 +33,7 @@ export class Card {
   }
 
   _deleteCard = function () {
-    console.log(this._element);
+    this._element.remove();
     this._element = null;
   };
 
