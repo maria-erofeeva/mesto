@@ -3,6 +3,7 @@ export class Popup {
     this._popupSelector = popupSelector;
     this._popup = document.querySelector(popupSelector);
     this._handleEscClose = this._handleEscClose.bind(this);
+    this._popupButton = this._popup.querySelector(".popup__button");
   }
 
   open() {
@@ -30,5 +31,13 @@ export class Popup {
         this.close();
       }
     });
+  }
+
+  changeButtonTextOnSaving(isSaving, originalButtonText, buttonTextWhileSaving) {
+    if (isSaving) {
+      this._popupButton.textContent = buttonTextWhileSaving;
+    } else {
+      this._popupButton.textContent = originalButtonText;
+    }
   }
 }

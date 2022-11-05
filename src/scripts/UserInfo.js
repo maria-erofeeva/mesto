@@ -1,7 +1,8 @@
 export class UserInfo {
-  constructor({ name, description }) {
+  constructor({ name, description, photo }) {
     this._name = name;
     this._description = description;
+    this._photo = photo;
   }
 
   getUserInfo() {
@@ -11,8 +12,9 @@ export class UserInfo {
     };
   }
 
-  setUserInfo(name, description) {
+  setUserInfo({name, description, photo}) {
     this._name.textContent = name;
     this._description.textContent = description;
+    this._userAvatar.style.backgroundImage = `url(${photo})`;
   }
 }

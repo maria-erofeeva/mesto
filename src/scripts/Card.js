@@ -1,10 +1,15 @@
 export class Card {
   constructor({ name, link }, templateSelector, handleCardClick) {
     this._name = name;
+
     this._link = link;
+
     this._templateSelector = templateSelector;
+
     this._handleCardClick = handleCardClick;
-    this._deleteCard = this._deleteCard.bind(this);
+
+    // this._deleteCard = this._deleteCard.bind(this);
+
     this._handleLike = this._handleLike.bind(this);
   }
 
@@ -32,16 +37,16 @@ export class Card {
     return this._element;
   }
 
-  _deleteCard = function () {
-    this._element.remove();
-    this._element = null;
-  };
+  // _deleteCard = function () {
+  //   this._element.remove();
+  //   this._element = null;
+  // };
 
   _setEventListener() {
     this._cardImage.addEventListener("click", () => {
       this._handleCardClick({ name: this._name, link: this._link });
     });
-    this._deleteButton.addEventListener("click", this._deleteCard);
+    // this._deleteButton.addEventListener("click", this._deleteCard);
     this._likeButton.addEventListener("click", this._handleLike);
   }
 }

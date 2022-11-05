@@ -93,3 +93,15 @@ export const figcaptionText = document.querySelector(".popup__figcaption");
 export const imageCloseButton = document.querySelector(
   "#popup-open-image-close-button"
 );
+
+export const profilePhoto = document.querySelector('.profile__image')
+
+export const popupUpdatePhoto = document.querySelector(
+    ".popup_edit-photo"
+  );
+
+export const cardDeleteButton = document.querySelector('.popup__button-delete');
+export const popupDeleteCard = document.querySelector('.popup_delete-card');
+export const elementDeleteList = document.querySelectorAll('.gallery__delete-button');
+export const currentPhoto = document.querySelectorAll('.profile__image');
+export const savingButton = document.querySelector('.popup__button')
