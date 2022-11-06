@@ -1,20 +1,20 @@
 export class UserInfo {
-  constructor({ name, description, photo }) {
+  constructor({ name, about, avatar }) {
     this._name = name;
-    this._description = description;
-    this._photo = photo;
+    this._about = about;
+    this._avatar = avatar;
   }
 
   getUserInfo() {
     return {
       name: this._name.textContent,
-      description: this._description.textContent,
+      about: this._about.textContent,
     };
   }
 
-  setUserInfo({ name, description, photo }) {
+  setUserInfo({ name, about, avatar }) {
     this._name.textContent = name;
-    this._description.textContent = description;
-    this._userAvatar.style.backgroundImage = `url(${photo})`;
+    this._about.textContent = about;
+    this._avatar.src = avatar;
   }
 }

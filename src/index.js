@@ -38,12 +38,26 @@ import { PopupWithConfirm } from "./scripts/PopupWithConfirm.js";
 import { Api } from "./scripts/Api.js";
 
 const api = new Api({
-  baseUrl: "https://mesto.nomoreparties.co/v1/cohort-42",
+  baseUrl: "https://mesto.nomoreparties.co/v1/cohort-52",
   headers: {
-    authorization: "c56e30dc-2883-4270-a59e-b2f7bae969c6",
+    authorization: "774bd685-0618-461a-a7e7-3d1039178086",
     "Content-Type": "application/json",
   },
 });
+
+let userId;
+
+const promises = [api.getUserInformation(), api.createCardsList()];
+Promise.all(promises)
+  .then(([userProfileResponse, initialCardsResponse]) => {
+    userId = userProfileResponse._id;
+    user.setUserInfo(userProfileResponse);
+    galleryCards.renderItems(initialCardsResponse);
+  })
+
+  .catch((error) => {
+    console.log(error);
+  });
 
 /*валидация всех форм*/
 
@@ -82,21 +96,24 @@ popupEditPhoto.setEventListeners();
 const popupImage = new PopupWithImage(".popup_type_image");
 popupImage.setEventListeners();
 
-const popupConfirm = new PopupWithConfirm('.popup_delete-card', handleConfirmFormSubmit);
+const popupConfirm = new PopupWithConfirm(
+  ".popup_delete-card",
+  handleConfirmFormSubmit
+);
 popupConfirm.setEventListeners();
 
 /*открыть попап с картинкой*/
 
-function handleCardClick({ name, link }) {
-  popupImage.open({ name, link });
-}
+// function handleCardClick({ name, link }) {
+//   popupImage.open({ name, link });
+// }
 
 /*получить информацию о пользователе*/
 
 const user = new UserInfo({
   name: currentName,
-  description: currentDescription,
-  photo: currentPhoto,
+  about: currentDescription,
+  avatar: currentPhoto,
 });
 
 api
@@ -114,14 +131,17 @@ popupProfileOpenButton.addEventListener("click", () => {
   profileFormValidator.disableButton();
   const userData = user.getUserInfo();
   popupName.value = userData.name;
-  popupDescription.value = userData.description;
+  popupDescription.value = userData.about;
 });
 
 function handleProfileFormSubmit(data) {
-  user.setUserInfo(data.name, data.description);
+  const newUserInfo = {
+    newUserName: data["name"],
+    newUserAbout: data["description"],
+  };
   popupEditProfile.buttonToggle(true, "Сохранить", "Сохранение...");
   api
-    .editProfile(data)
+    .editProfile(newUserInfo)
     .then((data) => {
       user.setUserInfo(data);
     })
@@ -144,7 +164,7 @@ const galleryCards = new Section(
   gallery
 );
 
-galleryCards.renderItems();
+// galleryCards.renderItems();
 
 api
   .createCardsList()
@@ -155,17 +175,38 @@ api
 
 /*сгенерировать новую карту*/
 
-function generateNewCard(data) {
+function generateNewCard(card) {
   const newCard = new Card(
-    { name: data.name, link: data.link },
+    card,
+    userId,
     cardTemplate,
-    handleCardClick
+    {
+      handleCardClick: (obj) => popupImage.open(obj),
+      deletePopupConfirm: (id) => handleConfirmFormSubmit(id, card),
+      handleLikeClick: (evt, id) => handleLike(evt, id, card),
+    }
   );
 
   const cardElement = newCard.generateCard();
-
   return cardElement;
 }
+
+const handleLike = (_, id, card) => {
+  const isCardLiked = card.isLikedByUser();
+  card.handleLikeButtonState({
+    isLoadig: true
+  });
+  const action = isCardLiked ? api.removeCardLike(id) : api.likeCard(id);
+
+  action
+    .then((res) => {
+      card.setLikesValue(res);
+      card.handleLikeButtonState({
+        isLoadig: false
+      });
+    })
+    .catch((error) => console.log(error));
+};
 
 function handleCardFormSubmit(data) {
   popupAddCard.buttonToggle(false, "Сохранить", "Сохранение...");
@@ -204,6 +245,7 @@ function editPhotoFormSubmit(data) {
     .setNewPhoto(newPhoto)
     .then((data) => {
       user.setUserInfo(data);
+      popupEditPhoto.close();
     })
     .catch((error) => {
       console.log(error);
@@ -220,21 +262,24 @@ profilePhoto.addEventListener("click", () => {
 
 /*открыть удаление фото*/
 
-elementDeleteList.forEach(function(item) {
-  item.addEventListener("click", () => {
-    popupConfirm.open();
-  })
-});
-
-function handleConfirmFormSubmit (cardId, element) {
-  api.deleteCard(cardId)
-    .then(() => {
-      element.remove();
-      element = null;
-      popupDeleteCard.close();
-    })
-    .catch((err) => {
-      console.log(err);
-    })
-    .finally(() => {});
+function deleteClick(cardId, element) {
+  popupConfirm.open(cardId, element);
 }
+
+function handleConfirmFormSubmit(cardId, cardElement) {
+  api
+    .deleteCard(cardId)
+    .then(() => {
+      cardElement.remove();;
+      popupConfirm.close();
+    })
+    .catch((error) => console.log(error))
+    .finally(() => {
+      popupConfirm.close();
+    });
+}
+
+cardFormOpenButton.addEventListener("click", () => {
+  popupAddCard.open();
+  cardFormValidator.disableButton();
+});
