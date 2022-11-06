@@ -1,90 +1,80 @@
-class Api {
-  _url;
-  _header;
-
-  constructor(options) {
-    this._header = options.header;
-    this._url = options.url;
+export class Api {
+  constructor({ baseUrl, headers }) {
+    this._baseUrl = baseUrl;
+    this._headers = headers;
   }
 
-  _handlePromise(response) {
+  _checkResponse(response) {
     if (response.ok) {
       return response.json();
     }
-    // если ошибка, отклоняем промис
     return Promise.reject(`Ошибка: ${res.status}`);
   }
 
-  getUserProfile() {
+  getUserInformation() {
     return fetch(`${this._url}/users/me`, {
-      header: this._header,
-    }).then((response) => this._handlePromise(response));
+      method: "GET",
+      headers: this._header,
+    }).then((response) => this._checkResponse(response));
   }
 
-  getInitialCards() {
+  createCardsList() {
     return fetch(`${this._url}/cards`, {
-      header: this._header,
-    }).then((response) => this._handlePromise(response));
+      method: "GET",
+      headers: this._header,
+    }).then((response) => this._checkResponse(response));
   }
 
-  editUserProfile({ newUserName, newUserAbout }) {
+  editProfile({ newName, newDescription }) {
     return fetch(`${this._url}/users/me`, {
       method: "PATCH",
-      header: this._header,
+      headers: this._header,
       body: JSON.stringify({
-        name: newUserName,
-        about: newUserAbout,
+        name: newName,
+        description: newDescription,
       }),
-    }).then((response) => this._handlePromise(response));
+    }).then((response) => this._checkResponse(response));
   }
 
-  addNewCard({newCardName, newCardLink}) {
+  addNewCard({ newCardName, newCardLink }) {
     return fetch(`${this._url}/cards`, {
-        method: 'POST',
-        header: this._header,
-        body: JSON.stringify({
-          name: newCardName,
-          link: newCardLink
-        })
-      })
-      .then(response => this._handlePromise(response))
+      method: "POST",
+      headers: this._header,
+      body: JSON.stringify({
+        name: newCardName,
+        link: newCardLink,
+      }),
+    }).then((response) => this._checkResponse(response));
   }
 
-  deleteCard(cardId) {
-    return fetch(`${this._url}/cards/${cardId}`, {
-        method: 'DELETE',
-        header: this._header
-      })
-      .then(response => this._handlePromise(response))
+  deleteCard(card) {
+    return fetch(`${this._url}/cards/${card}`, {
+      method: "DELETE",
+      headers: this._header,
+    }).then((response) => this._checkResponse(response));
   }
 
-  likeCard(cardId) {
-    return fetch(`${this._url}/cards/${cardId}/likes`, {
-        method: 'PUT',
-        header: this._header
-      })
-      .then(response => this._handlePromise(response))
+  likeCard(card) {
+    return fetch(`${this._url}/cards/${card}/likes`, {
+      method: "PUT",
+      headers: this._header,
+    }).then((response) => this._checkResponse(response));
   }
 
-  unlikeCard(cardId) {
-    return fetch(`${this._url}/cards/${cardId}/likes`, {
-        method: 'DELETE',
-        header: this._header
-      })
-      .then(response => this._handlePromise(response))
+  unlikeCard(card) {
+    return fetch(`${this._url}/cards/${card}/likes`, {
+      method: "DELETE",
+      headers: this._header,
+    }).then((response) => this._checkResponse(response));
   }
 
-  // сменить аватар у пользователя в профиле
-  updateUserAvatar(newAvatarLink) {
+  setNewPhoto(link) {
     return fetch(`${this._baseUrl}/users/me/avatar`, {
-        method: 'PATCH',
-        header: this._header,
-        body: JSON.stringify({
-          avatar: newAvatarLink
-        })
-      })
-      .then(response => this._handlePromise(response))
+      method: "PATCH",
+      headers: this._header,
+      body: JSON.stringify({
+        avatar: link,
+      }),
+    }).then((response) => this._checkResponse(response));
   }
-
-  // другие методы работы с API
 }

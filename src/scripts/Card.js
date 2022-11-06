@@ -1,15 +1,10 @@
 export class Card {
   constructor({ name, link }, templateSelector, handleCardClick) {
     this._name = name;
-
     this._link = link;
-
     this._templateSelector = templateSelector;
-
     this._handleCardClick = handleCardClick;
-
     // this._deleteCard = this._deleteCard.bind(this);
-
     this._handleLike = this._handleLike.bind(this);
   }
 
@@ -29,11 +24,16 @@ export class Card {
     this._cardImage = this._element.querySelector(".gallery__image");
     this._likeButton = this._element.querySelector(".gallery__like-button");
     this._deleteButton = this._element.querySelector(".gallery__delete-button");
-    this._setEventListener();
+    likeCounter = this._element.querySelector(
+      ".gallery__like-button-counter"
+    ).innerHTML;
+
     this._cardImage.src = this._link;
     this._element.querySelector(".gallery__card-title").textContent =
       this._name;
     this._element.querySelector(".gallery__image").alt = this._name;
+    // this.myLike = this._likes.some((like) => like._id === this._myId)
+    this._setEventListener();
     return this._element;
   }
 
@@ -42,11 +42,38 @@ export class Card {
   //   this._element = null;
   // };
 
+  // likeCount(act) {
+  //   this._likeButton.classList.toggle("gallery__like-button_active");
+  //   this._counterLikes.textContent = act;
+  //   this.myLike = true;
+  // }
+
+  // dislikeCount(act) {
+  //   this._likeButton.classList.remove("gallery__like-button_active");
+  //   this._counterLikes.textContent = act;
+  //   this.myLike = false;
+  // }
+
   _setEventListener() {
     this._cardImage.addEventListener("click", () => {
       this._handleCardClick({ name: this._name, link: this._link });
     });
     // this._deleteButton.addEventListener("click", this._deleteCard);
-    this._likeButton.addEventListener("click", this._handleLike);
+    // this._likeButton.addEventListener("click", this._handleLike);
+    const like = true;
+
+    this._likeButton.addEventListener("click", () => {
+      likeCounter = like ? ++likeCounter : --likeCounter;
+      like = !like;
+      this._element.querySelector(".gallery__like-button-counter").innerHTML =
+        likeCounter;
+    });
+    // if (!this._isMyOwnCard) {
+    //   this._elementDeleteButton.remove();
+    //   this._elementDeleteButton = null;
+    // } else {
+    //   this._elementDeleteButton.addEventListener("click", () => {
+    //     this._handleOpenPopupConfirm(this);
+    //   });
   }
 }

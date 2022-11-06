@@ -1,40 +1,40 @@
 /*импорт фото*/
 
-import baikal from "../images/baikal-min.jpg";
-import arkhangelsk from "../images/arkhangelsk-min.jpg";
-import elbrus from "../images/elbrus-min.jpg";
-import kalyazin from "../images/kalyazin-min.jpg";
-import karachaevsk from "../images/karachaevsk-min.jpg";
-import karelia from "../images/karelia-min.jpg";
+// import baikal from "../images/baikal-min.jpg";
+// import arkhangelsk from "../images/arkhangelsk-min.jpg";
+// import elbrus from "../images/elbrus-min.jpg";
+// import kalyazin from "../images/kalyazin-min.jpg";
+// import karachaevsk from "../images/karachaevsk-min.jpg";
+// import karelia from "../images/karelia-min.jpg";
 
 /*объявление изначального массива*/
 
-export const initialCards = [
-  {
-    name: "Байкал",
-    link: baikal,
-  },
-  {
-    name: "Архангельск",
-    link: arkhangelsk,
-  },
-  {
-    name: "Эльбрус",
-    link: elbrus,
-  },
-  {
-    name: "Калязинская колокольня",
-    link: kalyazin,
-  },
-  {
-    name: "Карачаевск",
-    link: karachaevsk,
-  },
-  {
-    name: "Карелия",
-    link: karelia,
-  },
-];
+// export const initialCards = [
+//   {
+//     name: "Байкал",
+//     link: baikal,
+//   },
+//   {
+//     name: "Архангельск",
+//     link: arkhangelsk,
+//   },
+//   {
+//     name: "Эльбрус",
+//     link: elbrus,
+//   },
+//   {
+//     name: "Калязинская колокольня",
+//     link: kalyazin,
+//   },
+//   {
+//     name: "Карачаевск",
+//     link: karachaevsk,
+//   },
+//   {
+//     name: "Карелия",
+//     link: karelia,
+//   },
+// ];
 
 export const validationElements = {
   formSelector: ".popup__form",

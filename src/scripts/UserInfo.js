@@ -12,7 +12,7 @@ export class UserInfo {
     };
   }
 
-  setUserInfo({name, description, photo}) {
+  setUserInfo({ name, description, photo }) {
     this._name.textContent = name;
     this._description.textContent = description;
     this._userAvatar.style.backgroundImage = `url(${photo})`;

@@ -33,11 +33,11 @@ export class Popup {
     });
   }
 
-  changeButtonTextOnSaving(isSaving, originalButtonText, buttonTextWhileSaving) {
+  buttonToggle(isSaving, originalText, savingText) {
     if (isSaving) {
-      this._popupButton.textContent = buttonTextWhileSaving;
+      this._popupButton.textContent = savingText;
     } else {
-      this._popupButton.textContent = originalButtonText;
+      this._popupButton.textContent = originalText;
     }
   }
 }

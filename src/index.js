@@ -15,7 +15,6 @@ import {
   popupDescription,
   gallery,
   cardFormElement,
-  initialCards,
   cardTemplate,
   popupUpdatePhoto,
   profilePhoto,
@@ -24,6 +23,7 @@ import {
   elementDeleteList,
   currentPhoto,
   savingButton,
+  elementDeleteArray,
 } from "./utils/constants.js";
 
 /*импорт модулей*/
@@ -34,7 +34,7 @@ import { PopupWithForm } from "./scripts/PopupWithForm.js";
 import { PopupWithImage } from "./scripts/PopupWithImage.js";
 import { Section } from "./scripts/Section.js";
 import { UserInfo } from "./scripts/UserInfo.js";
-import { Popup } from "./scripts/Popup.js";
+import { PopupWithConfirm } from "./scripts/PopupWithConfirm.js";
 import { Api } from "./scripts/Api.js";
 
 const api = new Api({
@@ -52,6 +52,7 @@ const cardFormValidator = new FormValidator(
   cardFormElement
 );
 cardFormValidator.enableValidation();
+
 const profileFormValidator = new FormValidator(validationElements, formProfile);
 profileFormValidator.enableValidation();
 
@@ -61,22 +62,34 @@ const editPhotoFormValidator = new FormValidator(
 );
 editPhotoFormValidator.enableValidation();
 
-/*зум*/
-
-const popupImage = new PopupWithImage(".popup_type_image");
-popupImage.setEventListeners();
-
-function handleCardClick({ name, link }) {
-  popupImage.open({ name, link });
-}
-
-/*открыть попап редактирование профиля*/
+/*создание форм*/
 
 const popupEditProfile = new PopupWithForm(
   ".popup_edit-profile",
   handleProfileFormSubmit
 );
 popupEditProfile.setEventListeners();
+
+const popupAddCard = new PopupWithForm(".popup_add-card", handleCardFormSubmit);
+popupAddCard.setEventListeners();
+
+const popupEditPhoto = new PopupWithForm(
+  ".popup_edit-photo",
+  editPhotoFormSubmit
+);
+popupEditPhoto.setEventListeners();
+
+const popupImage = new PopupWithImage(".popup_type_image");
+popupImage.setEventListeners();
+
+const popupConfirm = new PopupWithConfirm('.popup_delete-card', handleConfirmFormSubmit);
+popupConfirm.setEventListeners();
+
+/*открыть попап с картинкой*/
+
+function handleCardClick({ name, link }) {
+  popupImage.open({ name, link });
+}
 
 /*получить информацию о пользователе*/
 
@@ -87,14 +100,14 @@ const user = new UserInfo({
 });
 
 api
-  .getUserProfile()
+  .getUserInformation()
   .then((response) => {
     userId = response._id;
     user.setUserInfo(response);
   })
-  .catch((err) => console.log(err));
+  .catch((error) => console.log(error));
 
-/*открыть попап*/
+/*открыть попап редактирование профиля*/
 
 popupProfileOpenButton.addEventListener("click", () => {
   popupEditProfile.open();
@@ -106,26 +119,24 @@ popupProfileOpenButton.addEventListener("click", () => {
 
 function handleProfileFormSubmit(data) {
   user.setUserInfo(data.name, data.description);
-  popupEditProfile.changeButtonTextOnSaving(true, 'Сохранить', 'Сохранение...');
-  api.editUserProfile(newUserInfo)
+  popupEditProfile.buttonToggle(true, "Сохранить", "Сохранение...");
+  api
+    .editProfile(data)
     .then((data) => {
       user.setUserInfo(data);
     })
-    .catch((err) => {
-      console.log(err);
+    .catch((error) => {
+      console.log(error);
     })
     .finally(() => {
-      popupEditProfile.changeButtonTextOnSaving(false, 'Сохранить', 'Сохранение...');
+      popupEditProfile.buttonToggle(false, "Сохранить", "Сохранение...");
     });
 }
-
-popupEditProfile.setEventListeners();
 
 /*обход массива*/
 
 const galleryCards = new Section(
   {
-    items: initialCards,
     renderer: (item) => {
       galleryCards.addItem(generateNewCard(item));
     },
@@ -136,21 +147,18 @@ const galleryCards = new Section(
 galleryCards.renderItems();
 
 api
-  .getInitialCards()
-  .then((initialCards) => {
-    // для каждого элемента листа сформировать и отрисовать карточку
-    galleryCards.renderItems(initialCards);
+  .createCardsList()
+  .then((cards) => {
+    galleryCards.renderItems(cards);
   })
-  .catch((err) => console.log(err));
+  .catch((error) => console.log(error));
 
 /*сгенерировать новую карту*/
 
 function generateNewCard(data) {
   const newCard = new Card(
     { name: data.name, link: data.link },
-
     cardTemplate,
-
     handleCardClick
   );
 
@@ -160,53 +168,48 @@ function generateNewCard(data) {
 }
 
 function handleCardFormSubmit(data) {
-  popupAddCard.changeButtonTextOnSaving(false, 'Сохранить', 'Сохранение...');
+  popupAddCard.buttonToggle(false, "Сохранить", "Сохранение...");
   const newElement = generateNewCard({
     name: data.name,
-
     link: data.link,
   });
 
-  api.addNewCard(newElement)
+  api
+    .addNewCard(newElement)
     .then((data) => {
-      const element = renderCard(data);
+      const element = generateNewCard(data);
       galleryCards.addItem(element);
     })
-    .catch((err) => {
-      console.log(err);
+    .catch((error) => {
+      console.log(error);
     })
     .finally(() => {
-      popupNewCard.changeButtonTextOnSaving(false, 'Создать', 'Сохранение...');
+      popupNewCard.buttonToggle(false, "Создать", "Сохранение...");
     });
-
-  galleryCards.addItem(newElement);
 }
 
-/*открыть попап*/
-
-const popupAddCard = new PopupWithForm(".popup_add-card", handleCardFormSubmit);
+/*открыть попап с добавлением карточки*/
 
 cardFormOpenButton.addEventListener("click", () => {
   popupAddCard.open();
   cardFormValidator.disableButton();
 });
 
-popupAddCard.setEventListeners();
-
 /*открыть попап редактирование фото*/
 
 function editPhotoFormSubmit(data) {
-  popupEditPhoto.changeButtonTextOnSaving(true, 'Сохранить', 'Сохранение...');
-  const newAvatarLink = data['popup-edit-photo-link'];
-  api.updateUserAvatar(newAvatarLink)
+  popupEditPhoto.buttonToggle(true, "Сохранить", "Сохранение...");
+  const newPhoto = data["popup-edit-photo-link"];
+  api
+    .setNewPhoto(newPhoto)
     .then((data) => {
       user.setUserInfo(data);
     })
-    .catch((err) => {
-      console.log(err);
+    .catch((error) => {
+      console.log(error);
     })
     .finally(() => {
-      popupEditPhoto.changeButtonTextOnSaving(false, 'Сохранить', 'Сохранение...');
+      popupEditPhoto.buttonToggle(false, "Сохранить", "Сохранение...");
     });
 }
 
@@ -215,21 +218,23 @@ profilePhoto.addEventListener("click", () => {
   editPhotoFormValidator.disableButton();
 });
 
-const popupEditPhoto = new PopupWithForm(
-  ".popup_edit-photo",
-  editPhotoFormSubmit
-);
-
-popupEditPhoto.setEventListeners();
-
 /*открыть удаление фото*/
 
-// function handleDeleteClick() {
-//   popupDeletePhoto.open();
-// }
+elementDeleteList.forEach(function(item) {
+  item.addEventListener("click", () => {
+    popupConfirm.open();
+  })
+});
 
-// const popupDeletePhoto = new Popup(".popup_delete-card");
-
-// popupDeletePhoto.setEventListeners();
-
-/*API*/
+function handleConfirmFormSubmit (cardId, element) {
+  api.deleteCard(cardId)
+    .then(() => {
+      element.remove();
+      element = null;
+      popupDeleteCard.close();
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+    .finally(() => {});
+}
