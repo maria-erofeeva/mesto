@@ -24,25 +24,30 @@ export class Card {
   handleLikeButton(data) {
     this._card.likes = data.likes;
     this._handleLike();
-    this._showCounterValue();
+    this._countLikes();
+    // this._showCounterValue();
   }
 
   _handleLike() {
     this._likeButton.classList.toggle("gallery__like-button_active");
   }
 
-  _showCounterValue() {
-    this._likeCounter.innerText = this._card.likes.length;
-  }
+  // _showCounterValue() {
+  //   this._likeCounter.innerText = this._card.likes.length;
+  // }
 
-  isLikedByUser() {
-    if (this._card.likes.length === 0) {
-      return false;
+  isLiked() {
+    if (this._likeButton.classList.contains("gallery__like-button_active")) {
+      return true;
     } else {
-      return this._card.likes.some((item) => {
-        return item._id === this._userId;
-      });
+      return false;
+      };
     }
+
+  _countLikes() {
+    let counter = 0;
+    this._likeCounter.innerHTML = '';
+    this._likeCounter.innerHTML += ++counter;
   }
 
   /*проверить клиента сайта*/
@@ -79,6 +84,7 @@ export class Card {
     this._likeCounter = this._element.querySelector(
       ".gallery__like-button-counter"
     );
+    
 
     this._cardImage.src = this._link;
     this._element.querySelector(".gallery__card-title").textContent =

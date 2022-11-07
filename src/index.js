@@ -166,7 +166,7 @@ function generateNewCard(card) {
   const newCard = new Card(card, userId, cardTemplate, {
     handleCardClick: (obj) => popupImage.open(obj),
     deletePopupConfirm: (id) => handleConfirmFormSubmit(id, card),
-    handleLikeClick: (evt, id) => handleLike(evt, id, card),
+    handleLikeClick: (id) => handleLike(evt, id, card),
   });
   const cardElement = newCard.generateCard();
   return cardElement;
@@ -174,9 +174,10 @@ function generateNewCard(card) {
 
 /*обработчик лайка*/
 
-const handleLike = (_, id, card) => {
-  const isCardLiked = card.isLikedByUser();
-  if (isCardLiked) {
+function handleLike (evt, id, card) {
+  console.log(evt.target)
+  const buttonIsLiked = evt.target.closest(".gallery__like-button").isLiked;
+  if (buttonIsLiked === true) {
     api
       .unlikeCard(id)
       .then((data) => {
@@ -250,9 +251,9 @@ profilePhoto.addEventListener("click", () => {
 
 /*обработчик удаления карточки*/
 
-function handleConfirmFormSubmit (cardId, cardElement) {
+function handleConfirmFormSubmit(cardId, cardElement) {
   popupConfirm.open();
-  console.log(cardElement)
+  console.log(cardElement);
   document
     .querySelector(".popup__button_delete")
     .addEventListener("click", () => {
