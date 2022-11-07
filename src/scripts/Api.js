@@ -75,8 +75,8 @@ export class Api {
     }).then((response) => this._checkResponse(response));
   }
 
-  unlikeCard(card) {
-    return fetch(`${this._baseUrl}/cards/${card}/likes`, {
+  unlikeCard(cardId) {
+    return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
       method: "DELETE",
       headers: this._headers,
     }).then((response) => this._checkResponse(response));

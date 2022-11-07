@@ -18,12 +18,7 @@ import {
   cardTemplate,
   popupUpdatePhoto,
   profilePhoto,
-  cardDeleteButton,
-  popupDeleteCard,
-  elementDeleteList,
   currentPhoto,
-  savingButton,
-  elementDeleteArray,
 } from "./utils/constants.js";
 
 /*импорт модулей*/
@@ -102,12 +97,6 @@ const popupConfirm = new PopupWithConfirm(
 );
 popupConfirm.setEventListeners();
 
-/*открыть попап с картинкой*/
-
-// function handleCardClick({ name, link }) {
-//   popupImage.open({ name, link });
-// }
-
 /*получить информацию о пользователе*/
 
 const user = new UserInfo({
@@ -120,24 +109,31 @@ api
   .getUserInformation()
   .then((response) => {
     userId = response._id;
-    user.setUserInfo(response);
+    user.setUserInfo({
+      name: response.name,
+      about: response.about,
+      avatar: response.avatar,
+    });
   })
-  .catch((error) => console.log(error));
+  .catch((error) => {
+    console.log(error);
+  });
 
 /*открыть попап редактирование профиля*/
 
 popupProfileOpenButton.addEventListener("click", () => {
   popupEditProfile.open();
-  profileFormValidator.disableButton();
   const userData = user.getUserInfo();
   popupName.value = userData.name;
   popupDescription.value = userData.about;
 });
 
+/*обработка запроса редактирования профиля*/
+
 function handleProfileFormSubmit(data) {
   const newUserInfo = {
-    newUserName: data["name"],
-    newUserAbout: data["description"],
+    newName: data["name"],
+    newDescription: data["description"],
   };
   popupEditProfile.buttonToggle(true, "Сохранить", "Сохранение...");
   api
@@ -153,7 +149,7 @@ function handleProfileFormSubmit(data) {
     });
 }
 
-/*обход массива*/
+/*рендер карточек*/
 
 const galleryCards = new Section(
   {
@@ -164,69 +160,66 @@ const galleryCards = new Section(
   gallery
 );
 
-// galleryCards.renderItems();
-
-api
-  .createCardsList()
-  .then((cards) => {
-    galleryCards.renderItems(cards);
-  })
-  .catch((error) => console.log(error));
-
 /*сгенерировать новую карту*/
 
 function generateNewCard(card) {
-  const newCard = new Card(
-    card,
-    userId,
-    cardTemplate,
-    {
-      handleCardClick: (obj) => popupImage.open(obj),
-      deletePopupConfirm: (id) => handleConfirmFormSubmit(id, card),
-      handleLikeClick: (evt, id) => handleLike(evt, id, card),
-    }
-  );
+  const newCard = new Card(card, userId, cardTemplate, {
+    handleCardClick: (obj) => popupImage.open(obj),
+    deletePopupConfirm: (id) => handleConfirmFormSubmit(id, card),
+    handleLikeClick: (evt, id) => handleLike(evt, id, card),
+  });
 
   const cardElement = newCard.generateCard();
   return cardElement;
 }
 
+/*обработчик лайка*/
+
 const handleLike = (_, id, card) => {
   const isCardLiked = card.isLikedByUser();
-  card.handleLikeButtonState({
-    isLoadig: true
-  });
-  const action = isCardLiked ? api.removeCardLike(id) : api.likeCard(id);
-
-  action
-    .then((res) => {
-      card.setLikesValue(res);
-      card.handleLikeButtonState({
-        isLoadig: false
-      });
-    })
-    .catch((error) => console.log(error));
+  if (isCardLiked) {
+    api
+      .unlikeCard(id)
+      .then((data) => {
+        card.handleLikeButton(data);
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+  }
+  else {
+    api
+      .likeCard(id)
+      .then((data) => {
+        card.handleLikeButton(data);
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+  }
 };
 
+/*обработчик добавления новой карточки*/
+
 function handleCardFormSubmit(data) {
-  popupAddCard.buttonToggle(false, "Сохранить", "Сохранение...");
-  const newElement = generateNewCard({
-    name: data.name,
-    link: data.link,
+  const newCardData = {
+    newCardName: data['popup-add-card-title'],
+    newCardLink: data['popup-add-card-link']
+  };
+
+  api.addNewCard(newCardData)
+  .then((data) => {
+    const element = generateNewCard(data);
+    galleryCards.addItem(element);
+    popupAddCard.close();
+  })
+  .catch((error) => {
+    console.log(error);
+  })
+  .finally(() => {
+    popupAddCard.buttonToggle(false, 'Создать', 'Сохранение...');
   });
 
-  api
-    .addNewCard(newElement)
-    .then((data) => {
-      const element = generateNewCard(data);
-      galleryCards.addItem(element);
-    })
-    .catch((error) => {
-      console.log(error);
-    })
-    .finally(() => {
-      popupNewCard.buttonToggle(false, "Создать", "Сохранение...");
-    });
 }
 
 /*открыть попап с добавлением карточки*/
@@ -238,13 +231,11 @@ cardFormOpenButton.addEventListener("click", () => {
 
 /*открыть попап редактирование фото*/
 
-function editPhotoFormSubmit(data) {
-  popupEditPhoto.buttonToggle(true, "Сохранить", "Сохранение...");
-  const newPhoto = data["popup-edit-photo-link"];
+function editPhotoFormSubmit(avatar) {
   api
-    .setNewPhoto(newPhoto)
-    .then((data) => {
-      user.setUserInfo(data);
+    .setNewPhoto(avatar)
+    .then((response) => {
+      user.setAvatar(response.avatar);
       popupEditPhoto.close();
     })
     .catch((error) => {
@@ -260,26 +251,22 @@ profilePhoto.addEventListener("click", () => {
   editPhotoFormValidator.disableButton();
 });
 
-/*открыть удаление фото*/
-
-function deleteClick(cardId, element) {
-  popupConfirm.open(cardId, element);
-}
+/*обработчик удаления карточки*/
 
 function handleConfirmFormSubmit(cardId, cardElement) {
-  api
-    .deleteCard(cardId)
-    .then(() => {
-      cardElement.remove();;
-      popupConfirm.close();
-    })
-    .catch((error) => console.log(error))
-    .finally(() => {
-      popupConfirm.close();
-    });
+ popupConfirm.open();
+  popupConfirm.setSubmitCallback(() => {
+    api
+      .deleteCard(cardId)
+      .then(() => {
+        cardElement.removeCard();
+        popupConfirm.close();
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      .finally(() => {
+        popupConfirm.close();
+      });
+  });
 }
-
-cardFormOpenButton.addEventListener("click", () => {
-  popupAddCard.open();
-  cardFormValidator.disableButton();
-});

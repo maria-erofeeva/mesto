@@ -3,13 +3,24 @@ import { Popup } from "./Popup.js";
 export class PopupWithConfirm extends Popup {
   constructor(popupSelector, handleSubmitButton) {
     super(popupSelector);
-    this._handleSubmitButton = handleSubmitButton;;
+    this._handleSubmitButton = handleSubmitButton;
+    this._form = this._popup.querySelector(".popup__form");
   }
+
+  /*установить слушатели*/
 
   setEventListeners() {
     super.setEventListeners();
-    this._popupButton.addEventListener('click', () => {
-      this._handleSubmitButton(cardId, element);
+    this._form.addEventListener("submit", (evt) => {
+      evt.preventDefault();
+      this._submitCallBack();
     });
   }
+
+  /*вызвать колбэк*/
+
+  setSubmitCallback(callBack) {
+    this._submitCallBack = callBack;
+  }
+
 }

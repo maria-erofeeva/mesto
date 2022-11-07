@@ -4,9 +4,13 @@ export class Section {
     this._container = container;
   }
 
+  /*рендер элементов*/
+
   renderItems(items) {
     items.forEach((item) => this._renderer(item));
   }
+
+  /*добавить элементы в контейнер*/
 
   addItem(element) {
     this._container.prepend(element);

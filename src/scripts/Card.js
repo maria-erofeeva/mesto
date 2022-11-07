@@ -19,11 +19,41 @@ export class Card {
     this._deletePopupConfirm = deletePopupConfirm;
   }
 
+  /*обработка лайков*/
+
+  handleLikeButton(data) {
+    this._card.likes = data.likes;
+    this._handleLike();
+    this._showCounterValue();
+  }
+
+  _handleLike() {
+    this._likeButton.classList.toggle('gallery__like-button_active');
+  }
+
+  _showCounterValue() {
+    this._likeCounter.innerText = this._card.likes.length;
+  }
+
+  isLikedByUser() {
+    if (this._card.likes.length === 0) {
+      return false;
+    } else {
+      return this._card.likes.some((item) => {
+        return item._id === this._userId;
+      });
+    }
+  }
+
+  /*проверить клиента сайта*/
+
   _isOwner() {
     if (this._owner === this._currentUserId) {
       return true;
     }
   }
+
+  /*возвращение разметки*/
 
   _getTemplate() {
     const cardElement = this._templateSelector.content
@@ -31,6 +61,8 @@ export class Card {
       .cloneNode(true);
     return cardElement;
   }
+
+  /*сгенерировать карточку*/
 
   generateCard() {
     this._element = this._getTemplate();
@@ -54,6 +86,8 @@ export class Card {
     this._setEventListener();
     return this._element;
   }
+
+  /*установить слушатель*/
 
   _setEventListener() {
     this._cardImage.addEventListener("click", () => {

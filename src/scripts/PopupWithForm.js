@@ -9,6 +9,8 @@ export class PopupWithForm extends Popup {
     this._inputsList = Array.from(this._inputs);
   }
 
+  /*проверить инпут*/
+
   _getInputValues() {
     this._formValues = {};
     this._inputsList.forEach((input) => {
@@ -16,6 +18,8 @@ export class PopupWithForm extends Popup {
     });
     return this._formValues;
   }
+
+  /*установить слушатели*/
 
   setEventListeners() {
     super.setEventListeners();
@@ -25,6 +29,8 @@ export class PopupWithForm extends Popup {
       evt.preventDefault();
     });
   }
+
+  /*закрыть попап*/
 
   close() {
     super.close();

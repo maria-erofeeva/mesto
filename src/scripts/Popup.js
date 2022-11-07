@@ -6,6 +6,8 @@ export class Popup {
     this._popupButton = this._popup.querySelector(".popup__button");
   }
 
+  /*открыть/закрыть попап*/
+
   open() {
     this._popup.classList.add("popup_opened");
     document.addEventListener("keydown", this._handleEscClose);
@@ -16,11 +18,15 @@ export class Popup {
     document.removeEventListener("keydown", this._handleEscClose);
   }
 
+  /*обработчик эскейп*/
+
   _handleEscClose (event) {
     if (event.key === "Escape") {
       this.close();
     }
   }
+
+  /*установить слушатели*/
 
   setEventListeners() {
     this._popup.addEventListener("click", (evt) => {
@@ -32,6 +38,8 @@ export class Popup {
       }
     });
   }
+
+  /*изменить текст кнопки*/
 
   buttonToggle(isSaving, originalText, savingText) {
     if (isSaving) {

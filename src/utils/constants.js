@@ -103,5 +103,5 @@ export const popupUpdatePhoto = document.querySelector(
 export const cardDeleteButton = document.querySelector('.popup__button-delete');
 export const popupDeleteCard = document.querySelector('.popup_delete-card');
 export const elementDeleteList = document.querySelectorAll('.gallery__delete-button');
-export const currentPhoto = document.querySelectorAll('.profile__image');
+export const currentPhoto = document.querySelector('.profile__image');
 export const savingButton = document.querySelector('.popup__button')

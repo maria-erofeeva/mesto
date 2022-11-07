@@ -7,6 +7,8 @@ export class PopupWithImage extends Popup {
     this._popupFigcaption = this._popup.querySelector(".popup__figcaption");
   }
 
+  /*открыть попап с картинкой*/
+
   open({ name, link }) {
     super.open();
     this._popupPhoto.src = link;
