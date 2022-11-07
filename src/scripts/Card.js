@@ -28,7 +28,7 @@ export class Card {
   }
 
   _handleLike() {
-    this._likeButton.classList.toggle('gallery__like-button_active');
+    this._likeButton.classList.toggle("gallery__like-button_active");
   }
 
   _showCounterValue() {
@@ -62,6 +62,11 @@ export class Card {
     return cardElement;
   }
 
+  deleteThisCard() {
+    this._element.remove();
+    this._element = null;
+  };
+
   /*сгенерировать карточку*/
 
   generateCard() {
@@ -77,7 +82,7 @@ export class Card {
 
     this._cardImage.src = this._link;
     this._element.querySelector(".gallery__card-title").textContent =
-    this._title;
+      this._title;
     this._element.querySelector(".gallery__image").alt = this._title;
 
     if (this._card.owner._id !== this._userId) {

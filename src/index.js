@@ -168,7 +168,6 @@ function generateNewCard(card) {
     deletePopupConfirm: (id) => handleConfirmFormSubmit(id, card),
     handleLikeClick: (evt, id) => handleLike(evt, id, card),
   });
-
   const cardElement = newCard.generateCard();
   return cardElement;
 }
@@ -185,9 +184,8 @@ const handleLike = (_, id, card) => {
       })
       .catch((error) => {
         console.log(error);
-      })
-  }
-  else {
+      });
+  } else {
     api
       .likeCard(id)
       .then((data) => {
@@ -195,7 +193,7 @@ const handleLike = (_, id, card) => {
       })
       .catch((error) => {
         console.log(error);
-      })
+      });
   }
 };
 
@@ -203,23 +201,22 @@ const handleLike = (_, id, card) => {
 
 function handleCardFormSubmit(data) {
   const newCardData = {
-    newCardName: data['popup-add-card-title'],
-    newCardLink: data['popup-add-card-link']
+    newCardName: data.name,
+    newCardLink: data.link,
   };
-
-  api.addNewCard(newCardData)
-  .then((data) => {
-    const element = generateNewCard(data);
-    galleryCards.addItem(element);
-    popupAddCard.close();
-  })
-  .catch((error) => {
-    console.log(error);
-  })
-  .finally(() => {
-    popupAddCard.buttonToggle(false, 'Создать', 'Сохранение...');
-  });
-
+  api
+    .addNewCard(newCardData)
+    .then((data) => {
+      const element = generateNewCard(data);
+      galleryCards.addItem(element);
+      popupAddCard.close();
+    })
+    .catch((error) => {
+      console.log(error);
+    })
+    .finally(() => {
+      popupAddCard.buttonToggle(false, "Создать", "Сохранение...");
+    });
 }
 
 /*открыть попап с добавлением карточки*/
@@ -233,7 +230,7 @@ cardFormOpenButton.addEventListener("click", () => {
 
 function editPhotoFormSubmit(avatar) {
   api
-    .setNewPhoto(avatar)
+    .setNewPhoto(avatar.link)
     .then((response) => {
       user.setAvatar(response.avatar);
       popupEditPhoto.close();
@@ -253,20 +250,24 @@ profilePhoto.addEventListener("click", () => {
 
 /*обработчик удаления карточки*/
 
-function handleConfirmFormSubmit(cardId, cardElement) {
- popupConfirm.open();
-  popupConfirm.setSubmitCallback(() => {
-    api
-      .deleteCard(cardId)
-      .then(() => {
-        cardElement.removeCard();
-        popupConfirm.close();
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-      .finally(() => {
-        popupConfirm.close();
-      });
-  });
+function handleConfirmFormSubmit (cardId, cardElement) {
+  popupConfirm.open();
+  console.log(cardElement)
+  document
+    .querySelector(".popup__button_delete")
+    .addEventListener("click", () => {
+      api
+        .deleteCard(cardId)
+        .then(() => {
+          console.log(cardElement);
+          cardElement = null;
+          popupConfirm.close();
+        })
+        .catch((error) => {
+          console.log(error);
+        })
+        .finally(() => {
+          popupConfirm.close();
+        });
+    });
 }
