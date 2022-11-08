@@ -106,7 +106,7 @@ export class Card {
       this._deletePopupConfirm(this._cardId, this._element);
     });
     this._likeButton.addEventListener("click", (evt) => {
-      this._handleLikeClick(evt, this._card);
+      this._handleLikeClick(evt, this._cardId, this._card);
     });
   }
 }

@@ -166,7 +166,7 @@ function generateNewCard(card) {
   const newCard = new Card(card, userId, cardTemplate, {
     handleCardClick: obj => popupImage.open(obj),
     deletePopupConfirm: id => handleConfirmFormSubmit(newCard),
-    handleLikeClick: id => handleLike(id, card),
+    handleLikeClick: (evt, id, card) => handleLike(evt, id, card),
   });
   const cardElement = newCard.generateCard();
   return cardElement;
@@ -174,15 +174,17 @@ function generateNewCard(card) {
 
 /*обработчик лайка*/
 
-function handleLike (id, card) {
+function handleLike (evt, id, card) {
   console.log(id)
   console.log(card)
+  console.log(evt)
   const buttonIsLikedByUser = card.isLikedByUser;
   if (buttonIsLikedByUser === true) {
     api
       .unlikeCard(card._id)
       .then((data) => {
-        card.handleLikeButton(data);
+        console.log(data)
+        evt.target.handleLikeButton(data);
       })
       .catch((error) => {
         console.log(error);
@@ -191,7 +193,7 @@ function handleLike (id, card) {
     api
       .likeCard(card._id)
       .then((data) => {
-        card.handleLikeButton(data);
+        evt.target.handleLikeButton(data);
       })
       .catch((error) => {
         console.log(error);
