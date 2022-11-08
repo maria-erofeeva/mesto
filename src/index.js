@@ -184,7 +184,7 @@ function handleLike (evt, id, card) {
       .unlikeCard(card._id)
       .then((data) => {
         console.log(data)
-        evt.target.handleLikeButton(data);
+        card.countLikes(data);
       })
       .catch((error) => {
         console.log(error);
@@ -193,29 +193,12 @@ function handleLike (evt, id, card) {
     api
       .likeCard(card._id)
       .then((data) => {
-        evt.target.handleLikeButton(data);
+        card.countLikes(data);
       })
       .catch((error) => {
         console.log(error);
       });
-  }
-
-  // document
-  //   .querySelector(".gallery__like-button")
-  //   .addEventListener("click", () => {
-  //     api
-  //     .unlikeCard(id)
-  //         .then((data) => {
-  //           card.handleLikeButton(data);
-  //         })
-  //       .catch((error) => {
-  //         console.log(error);
-  //       })
-  //       .finally(() => {
-  //         popupConfirm.close();
-  //       });
-  //   });
-};
+  }}
 
 /*обработчик добавления новой карточки*/
 

@@ -11,6 +11,7 @@ export class Card {
     this._owner = card.owner._id;
     this._link = card.link;
     this._title = card.name;
+    this._likes = card.likes;
 
     this._templateSelector = templateSelector;
 
@@ -21,31 +22,34 @@ export class Card {
 
   /*обработка лайков*/
 
-  handleLikeButton(data) {
-    this._card.likes = data.likes;
-    this._handleLike();
-    this._countLikes();
-    this._showCounterValue();
-  }
+  // handleLikeButton() {
+    // this._card.likes = data.likes;
+    // this._handleLike();
+    // this._countLikes();
+    // this._showCounterValue();
+  // }
 
-  _handleLike() {
-    this._likeButton.classList.toggle("gallery__like-button_active");
-  }
+  // _handleLike() {
+  //   this._likeButton.classList.toggle("gallery__like-button_active");
+  // }
 
-  _showCounterValue() {
-    this._likeCounter.innerText = this._card.likes.length;
-  }
+  // _showCounterValue() {
+  //   this._likeCounter.innerText = this._card.likes.length;
+  // }
 
   isLikedByUser() {
-    if (this._card.likes.includes(this._card.likes.owner._id)) {
-      return true;
-    }
+    return this._likes.some((ownerId) => ownerId._id === this._currentUserId);
   }
 
-  _countLikes() {
-    let counter = 0;
-    this._likeCounter.innerHTML = '';
-    this._likeCounter.innerHTML += ++counter;
+  countLikes(likes) {
+      this._likes = likes;
+      this._isLiked = this.isLikedByUser(likes);
+      if (this._isLiked) {
+          this._likeButton.classList.add("gallery__like-button_active");
+      } else {
+          this._likeButton.classList.remove("gallery__like-button_active");
+      }
+      this._likeCounter.textContent = likes.length;
   }
 
   /*проверить клиента сайта*/
@@ -82,7 +86,7 @@ export class Card {
 
     this._likeCounter = this._element.querySelector(
       ".gallery__like-button-counter"
-    ).innerHTML;
+    );
 
     this._cardImage.src = this._link;
     this._element.querySelector(".gallery__card-title").textContent =
