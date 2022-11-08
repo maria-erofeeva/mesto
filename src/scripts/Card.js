@@ -25,24 +25,22 @@ export class Card {
     this._card.likes = data.likes;
     this._handleLike();
     this._countLikes();
-    // this._showCounterValue();
+    this._showCounterValue();
   }
 
   _handleLike() {
     this._likeButton.classList.toggle("gallery__like-button_active");
   }
 
-  // _showCounterValue() {
-  //   this._likeCounter.innerText = this._card.likes.length;
-  // }
+  _showCounterValue() {
+    this._likeCounter.innerText = this._card.likes.length;
+  }
 
-  isLiked() {
-    if (this._likeButton.classList.contains("gallery__like-button_active")) {
+  isLikedByUser() {
+    if (this._card.likes.includes(this._card.likes.owner._id)) {
       return true;
-    } else {
-      return false;
-      };
     }
+  }
 
   _countLikes() {
     let counter = 0;
@@ -70,7 +68,7 @@ export class Card {
   deleteThisCard() {
     this._element.remove();
     this._element = null;
-  };
+  }
 
   /*сгенерировать карточку*/
 
@@ -80,11 +78,11 @@ export class Card {
     this._likeButton = this._element.querySelector(".gallery__like-button");
     this._deleteButton = this._element.querySelector(".gallery__delete-button");
     this._currentUserId = localStorage.getItem("userId");
+    this._currentUserLikeId = localStorage.getItem("userId");
 
     this._likeCounter = this._element.querySelector(
       ".gallery__like-button-counter"
-    );
-    
+    ).innerHTML;
 
     this._cardImage.src = this._link;
     this._element.querySelector(".gallery__card-title").textContent =
@@ -108,7 +106,7 @@ export class Card {
       this._deletePopupConfirm(this._cardId, this._element);
     });
     this._likeButton.addEventListener("click", (evt) => {
-      this._handleLikeClick(evt, this._cardId);
+      this._handleLikeClick(evt, this._card);
     });
   }
 }

@@ -164,9 +164,9 @@ const galleryCards = new Section(
 
 function generateNewCard(card) {
   const newCard = new Card(card, userId, cardTemplate, {
-    handleCardClick: (obj) => popupImage.open(obj),
-    deletePopupConfirm: (id) => handleConfirmFormSubmit(id, card),
-    handleLikeClick: (id) => handleLike(evt, id, card),
+    handleCardClick: obj => popupImage.open(obj),
+    deletePopupConfirm: id => handleConfirmFormSubmit(newCard),
+    handleLikeClick: id => handleLike(id, card),
   });
   const cardElement = newCard.generateCard();
   return cardElement;
@@ -174,12 +174,13 @@ function generateNewCard(card) {
 
 /*обработчик лайка*/
 
-function handleLike (evt, id, card) {
-  console.log(evt.target)
-  const buttonIsLiked = evt.target.closest(".gallery__like-button").isLiked;
-  if (buttonIsLiked === true) {
+function handleLike (id, card) {
+  console.log(id)
+  console.log(card)
+  const buttonIsLikedByUser = card.isLikedByUser;
+  if (buttonIsLikedByUser === true) {
     api
-      .unlikeCard(id)
+      .unlikeCard(card._id)
       .then((data) => {
         card.handleLikeButton(data);
       })
@@ -188,7 +189,7 @@ function handleLike (evt, id, card) {
       });
   } else {
     api
-      .likeCard(id)
+      .likeCard(card._id)
       .then((data) => {
         card.handleLikeButton(data);
       })
@@ -196,6 +197,22 @@ function handleLike (evt, id, card) {
         console.log(error);
       });
   }
+
+  // document
+  //   .querySelector(".gallery__like-button")
+  //   .addEventListener("click", () => {
+  //     api
+  //     .unlikeCard(id)
+  //         .then((data) => {
+  //           card.handleLikeButton(data);
+  //         })
+  //       .catch((error) => {
+  //         console.log(error);
+  //       })
+  //       .finally(() => {
+  //         popupConfirm.close();
+  //       });
+  //   });
 };
 
 /*обработчик добавления новой карточки*/
@@ -251,17 +268,16 @@ profilePhoto.addEventListener("click", () => {
 
 /*обработчик удаления карточки*/
 
-function handleConfirmFormSubmit(cardId, cardElement) {
+function handleConfirmFormSubmit(card) {
   popupConfirm.open();
-  console.log(cardElement);
+  console.log(card);
   document
     .querySelector(".popup__button_delete")
     .addEventListener("click", () => {
       api
-        .deleteCard(cardId)
+        .deleteCard(card._cardId)
         .then(() => {
-          console.log(cardElement);
-          cardElement = null;
+          card.deleteThisCard();
           popupConfirm.close();
         })
         .catch((error) => {
