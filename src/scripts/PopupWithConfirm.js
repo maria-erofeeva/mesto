@@ -16,4 +16,12 @@ export class PopupWithConfirm extends Popup {
     });
   }
 
+  buttonToggle() {
+    super.buttonToggle();
+    this._popupButton.addEventListener("click", () => {
+      this._popupButton.textContent = "Удаление...";
+    });
+    console.log(this._popupButton)
+  }
+
 }

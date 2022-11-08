@@ -38,19 +38,23 @@ export class Card {
   // }
 
   isLikedByUser() {
-    return this._likes.some((ownerId) => ownerId._id === this._currentUserId);
+    return this._likes.some((ownerId) => ownerId._id === this._userId);
   }
 
-  countLikes(likes) {
-      this._likes = likes;
-      this._isLiked = this.isLikedByUser(likes);
-      if (this._isLiked) {
-          this._likeButton.classList.add("gallery__like-button_active");
-      } else {
-          this._likeButton.classList.remove("gallery__like-button_active");
-      }
-      this._likeCounter.textContent = likes.length;
+  countLikes({ likes }) {
+    this._likes = likes;
+    this._updateLikesView();
+}
+
+_updateLikesView() {
+  this._isLiked = this.isLikedByUser();
+  if (this._isLiked) {
+    this._likeButton.classList.add("gallery__like-button_active");
+  } else {
+    this._likeButton.classList.remove("gallery__like-button_active");
   }
+  this._likeCounter.textContent = this._likes.length;
+}
 
   /*проверить клиента сайта*/
 
@@ -96,6 +100,7 @@ export class Card {
     if (this._card.owner._id !== this._userId) {
       this._deleteButton.classList.add("gallery__delete-button_inactive");
     }
+    this._updateLikesView();
     this._setEventListener();
     return this._element;
   }
@@ -110,7 +115,7 @@ export class Card {
       this._deletePopupConfirm(this._cardId, this._element);
     });
     this._likeButton.addEventListener("click", (evt) => {
-      this._handleLikeClick(evt, this._cardId, this._card);
+      this._handleLikeClick(evt, this._cardId, this);
     });
   }
 }

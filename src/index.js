@@ -19,6 +19,7 @@ import {
   popupUpdatePhoto,
   profilePhoto,
   currentPhoto,
+  popupDeleteCard
 } from "./utils/constants.js";
 
 /*импорт модулей*/
@@ -133,9 +134,9 @@ popupProfileOpenButton.addEventListener("click", () => {
 function handleProfileFormSubmit(data) {
   const newUserInfo = {
     newName: data["name"],
-    newDescription: data["description"],
+    newDescription: data["about"],
   };
-  popupEditProfile.buttonToggle(true, "Сохранить", "Сохранение...");
+  popupEditProfile.buttonToggle();
   api
     .editProfile(newUserInfo)
     .then((data) => {
@@ -143,9 +144,6 @@ function handleProfileFormSubmit(data) {
     })
     .catch((error) => {
       console.log(error);
-    })
-    .finally(() => {
-      popupEditProfile.buttonToggle(false, "Сохранить", "Сохранение...");
     });
 }
 
@@ -175,15 +173,11 @@ function generateNewCard(card) {
 /*обработчик лайка*/
 
 function handleLike (evt, id, card) {
-  console.log(id)
-  console.log(card)
-  console.log(evt)
-  const buttonIsLikedByUser = card.isLikedByUser;
+  const buttonIsLikedByUser = card.isLikedByUser();
   if (buttonIsLikedByUser === true) {
     api
-      .unlikeCard(card._id)
+      .unlikeCard(id)
       .then((data) => {
-        console.log(data)
         card.countLikes(data);
       })
       .catch((error) => {
@@ -191,7 +185,7 @@ function handleLike (evt, id, card) {
       });
   } else {
     api
-      .likeCard(card._id)
+      .likeCard(id)
       .then((data) => {
         card.countLikes(data);
       })
@@ -207,6 +201,7 @@ function handleCardFormSubmit(data) {
     newCardName: data.name,
     newCardLink: data.link,
   };
+  popupAddCard.buttonToggle();
   api
     .addNewCard(newCardData)
     .then((data) => {
@@ -216,9 +211,6 @@ function handleCardFormSubmit(data) {
     })
     .catch((error) => {
       console.log(error);
-    })
-    .finally(() => {
-      popupAddCard.buttonToggle(false, "Создать", "Сохранение...");
     });
 }
 
@@ -232,6 +224,7 @@ cardFormOpenButton.addEventListener("click", () => {
 /*открыть попап редактирование фото*/
 
 function editPhotoFormSubmit(avatar) {
+  popupEditPhoto.buttonToggle();
   api
     .setNewPhoto(avatar.link)
     .then((response) => {
@@ -240,9 +233,6 @@ function editPhotoFormSubmit(avatar) {
     })
     .catch((error) => {
       console.log(error);
-    })
-    .finally(() => {
-      popupEditPhoto.buttonToggle(false, "Сохранить", "Сохранение...");
     });
 }
 
@@ -255,7 +245,7 @@ profilePhoto.addEventListener("click", () => {
 
 function handleConfirmFormSubmit(card) {
   popupConfirm.open();
-  console.log(card);
+  popupConfirm.buttonToggle();
   document
     .querySelector(".popup__button_delete")
     .addEventListener("click", () => {

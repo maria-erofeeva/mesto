@@ -39,13 +39,24 @@ export class Popup {
     });
   }
 
-  /*изменить текст кнопки*/
-
-  buttonToggle(isSaving, originalText, savingText) {
-    if (isSaving) {
-      this._popupButton.textContent = savingText;
-    } else {
-      this._popupButton.textContent = originalText;
-    }
+  buttonToggle() {
+    this._popupButton.addEventListener("click", () => {
+      this._popupButton.textContent = "Сохранение...";
+    });
   }
 }
+  /*изменить текст кнопки*/
+
+  // buttonToggle(isSaving, originalText, savingText) {
+  //   if (isSaving) {
+  //     this._popupButton.textContent = savingText;
+  //   } else {
+  //     this._popupButton.textContent = originalText;
+  //   }
+  // }
+
+  // buttonToggle(button) {
+  //   button.addEventListener('submit', (evt) => {
+  //     this._popupButton.textContent = savingText;
+  //   }
+  //   }}

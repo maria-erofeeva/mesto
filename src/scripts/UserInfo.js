@@ -26,7 +26,6 @@ export class UserInfo {
     this._name.textContent = name;
     this._about.textContent = about;
     this._avatar.src = avatar;
-    console.log(avatar)
   }
 
   /*обновить аватар*/
