@@ -1,4 +1,4 @@
-.profile__image_overlay {
+.profile__image-overlay {
   position: absolute;
   top: 0;
   bottom: 0;
@@ -12,6 +12,6 @@
   z-index: -100;
 }
 
-.profile__image_overlay:hover {
+.profile__image-overlay:hover {
     z-index: 100;
 }
