@@ -20,23 +20,6 @@ export class Card {
     this._deletePopupConfirm = deletePopupConfirm;
   }
 
-  /*обработка лайков*/
-
-  // handleLikeButton() {
-    // this._card.likes = data.likes;
-    // this._handleLike();
-    // this._countLikes();
-    // this._showCounterValue();
-  // }
-
-  // _handleLike() {
-  //   this._likeButton.classList.toggle("gallery__like-button_active");
-  // }
-
-  // _showCounterValue() {
-  //   this._likeCounter.innerText = this._card.likes.length;
-  // }
-
   isLikedByUser() {
     return this._likes.some((ownerId) => ownerId._id === this._userId);
   }
@@ -44,17 +27,17 @@ export class Card {
   countLikes({ likes }) {
     this._likes = likes;
     this._updateLikesView();
-}
-
-_updateLikesView() {
-  this._isLiked = this.isLikedByUser();
-  if (this._isLiked) {
-    this._likeButton.classList.add("gallery__like-button_active");
-  } else {
-    this._likeButton.classList.remove("gallery__like-button_active");
   }
-  this._likeCounter.textContent = this._likes.length;
-}
+
+  _updateLikesView() {
+    this._isLiked = this.isLikedByUser();
+    if (this._isLiked) {
+      this._likeButton.classList.add("gallery__like-button_active");
+    } else {
+      this._likeButton.classList.remove("gallery__like-button_active");
+    }
+    this._likeCounter.textContent = this._likes.length;
+  }
 
   /*проверить клиента сайта*/
 

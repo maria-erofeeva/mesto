@@ -18,8 +18,7 @@ import {
   cardTemplate,
   popupUpdatePhoto,
   profilePhoto,
-  currentPhoto,
-  popupDeleteCard
+  currentPhoto
 } from "./utils/constants.js";
 
 /*импорт модулей*/
