@@ -3,7 +3,7 @@ export class Card {
     card,
     userId,
     templateSelector,
-    { handleCardClick, deletePopupConfirm, handleLikeClick }
+    { handleCardClick, handleDelete, handleLikeClick }
   ) {
     this._card = card;
     this._userId = userId;
@@ -17,7 +17,7 @@ export class Card {
 
     this._handleCardClick = handleCardClick;
     this._handleLikeClick = handleLikeClick;
-    this._deletePopupConfirm = deletePopupConfirm;
+    this._handleDelete = handleDelete;
   }
 
   isLikedByUser() {
@@ -41,11 +41,9 @@ export class Card {
 
   /*проверить клиента сайта*/
 
-  _isOwner() {
-    if (this._owner === this._currentUserId) {
-      return true;
-    }
-  }
+  // _isOwner() {
+  //   return this._owner === this._userId;
+  // }
 
   /*возвращение разметки*/
 
@@ -56,7 +54,7 @@ export class Card {
     return cardElement;
   }
 
-  deleteThisCard() {
+  deleteCard() {
     this._element.remove();
     this._element = null;
   }
@@ -68,8 +66,7 @@ export class Card {
     this._cardImage = this._element.querySelector(".gallery__image");
     this._likeButton = this._element.querySelector(".gallery__like-button");
     this._deleteButton = this._element.querySelector(".gallery__delete-button");
-    this._currentUserId = localStorage.getItem("userId");
-    this._currentUserLikeId = localStorage.getItem("userId");
+    // this._currentUserId = localStorage.getItem("userId");
 
     this._likeCounter = this._element.querySelector(
       ".gallery__like-button-counter"
@@ -78,7 +75,7 @@ export class Card {
     this._cardImage.src = this._link;
     this._element.querySelector(".gallery__card-title").textContent =
       this._title;
-    this._element.querySelector(".gallery__image").alt = this._title;
+    this._cardImage.alt = this._title;
 
     if (this._card.owner._id !== this._userId) {
       this._deleteButton.classList.add("gallery__delete-button_inactive");
@@ -95,7 +92,7 @@ export class Card {
       this._handleCardClick({ name: this._card.name, link: this._card.link });
     });
     this._deleteButton.addEventListener("click", () => {
-      this._deletePopupConfirm(this._cardId, this._element);
+      this._handleDelete(this._cardId, this._element);
     });
     this._likeButton.addEventListener("click", (evt) => {
       this._handleLikeClick(evt, this._cardId, this);

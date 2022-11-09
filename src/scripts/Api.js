@@ -19,7 +19,7 @@ export class Api {
     return fetch(`${this._baseUrl}/users/me`, {
       method: "GET",
       headers: this._headers,
-    }).then((response) => this._checkResponse(response));
+    }).then(this._checkResponse);
   }
 
   /*загрузка карточек с сервера*/
@@ -28,7 +28,7 @@ export class Api {
     return fetch(`${this._baseUrl}/cards`, {
       method: "GET",
       headers: this._headers,
-    }).then((response) => this._checkResponse(response));
+    }).then(this._checkResponse);
   }
 
   /*редактирование профиля*/
@@ -41,7 +41,7 @@ export class Api {
         name: newName,
         about: newDescription,
       }),
-    }).then((response) => this._checkResponse(response));
+    }).then(this._checkResponse);
   }
 
   /*добавление новой карточки*/
@@ -54,7 +54,7 @@ export class Api {
         name: newCardName,
         link: newCardLink,
       }),
-    }).then((response) => this._checkResponse(response));
+    }).then(this._checkResponse);
   }
 
   /*удалить карточку*/
@@ -63,7 +63,7 @@ export class Api {
     return fetch(`${this._baseUrl}/cards/${cardId}`, {
       method: "DELETE",
       headers: this._headers,
-    }).then((response) => this._checkResponse(response));
+    }).then(this._checkResponse);
   }
 
   /*поставить и снять лайк карточке*/
@@ -72,14 +72,14 @@ export class Api {
     return fetch(`${this._baseUrl}/cards/${id}/likes`, {
       method: "PUT",
       headers: this._headers,
-    }).then((response) => this._checkResponse(response));
+    }).then(this._checkResponse);
   }
 
   unlikeCard(id) {
     return fetch(`${this._baseUrl}/cards/${id}/likes`, {
       method: "DELETE",
       headers: this._headers,
-    }).then((response) => this._checkResponse(response));
+    }).then(this._checkResponse);
   }
 
   /*обновление аватара пользователя*/
@@ -91,6 +91,6 @@ export class Api {
       body: JSON.stringify({
         avatar,
       }),
-    }).then((response) => this._checkResponse(response));
+    }).then(this._checkResponse);
   }
 }

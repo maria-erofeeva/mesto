@@ -38,10 +38,4 @@ export class Popup {
       }
     });
   }
-
-  buttonToggle() {
-    this._popupButton.addEventListener("click", () => {
-      this._popupButton.textContent = "Сохранение...";
-    });
-  }
 }

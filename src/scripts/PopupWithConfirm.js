@@ -1,26 +1,33 @@
 import { Popup } from "./Popup.js";
 
 export class PopupWithConfirm extends Popup {
-  constructor(popupSelector, handleSubmitButton) {
+  constructor(popupSelector, handleSubmit) {
     super(popupSelector);
-    this._handleSubmitButton = handleSubmitButton;
     this._form = this._popup.querySelector(".popup__form");
+    this._handleSubmit = handleSubmit;
+    this._confirmButton = this._popup.querySelector(".popup__button_delete")
   }
 
   /*установить слушатели*/
 
+  setCallback(submitCb) {
+    this._handleSubmit = submitCb;
+  }
+
   setEventListeners() {
     super.setEventListeners();
-    this._form.addEventListener("submit", (evt) => {
-      evt.preventDefault();
-    });
+    // this._form.addEventListener("submit", (evt) => {
+    //   evt.preventDefault();
+    // });
+    this._form.addEventListener('submit', (evt) => {
+      evt.preventDefault()
+      this._handleSubmit();
+   })
   }
 
-  buttonToggle() {
-    super.buttonToggle();
-    this._popupButton.addEventListener("click", () => {
-      this._popupButton.textContent = "Удаление...";
-    });
+  setSubmitButtonText(setNewText, newText) {
+    if (setNewText) {
+      this._popupButton.textContent = newText;
+    }
   }
-
 }

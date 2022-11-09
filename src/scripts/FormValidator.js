@@ -5,7 +5,6 @@ export class FormValidator {
   _buttonInactive;
   _inputError;
   _activeError;
-  _form;
   _inputList;
 
   constructor(validationConfig, form) {
@@ -33,7 +32,7 @@ export class FormValidator {
     error.textContent = "";
   }
 
-  _hasInvalidInput(input) {
+  _checkInputError(input) {
     const error = this._form.querySelector(`.${input.id}-error`);
     if (input.validity.valid) {
       this._hideInputError(input, error);
@@ -60,7 +59,7 @@ export class FormValidator {
   _setEventListeners() {
     this._inputList.forEach((item) => {
       item.addEventListener("input", () => {
-        this._hasInvalidInput(item);
+        this._checkInputError(item);
         this._validateButton();
       });
     });
