@@ -39,12 +39,6 @@ export class Card {
     this._likeCounter.textContent = this._likes.length;
   }
 
-  /*проверить клиента сайта*/
-
-  // _isOwner() {
-  //   return this._owner === this._userId;
-  // }
-
   /*возвращение разметки*/
 
   _getTemplate() {

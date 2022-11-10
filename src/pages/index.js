@@ -91,10 +91,7 @@ popupEditPhoto.setEventListeners();
 const popupImage = new PopupWithImage(".popup_type_image");
 popupImage.setEventListeners();
 
-const popupConfirm = new PopupWithConfirm(
-  ".popup_delete-card",
-  openConfirmationPopup
-);
+const popupConfirm = new PopupWithConfirm(".popup_delete-card");
 popupConfirm.setEventListeners();
 
 /*получить информацию о пользователе*/
@@ -121,7 +118,7 @@ function handleProfileFormSubmit(data) {
     newName: data["name"],
     newDescription: data["about"],
   };
-  popupEditProfile.setSubmitButtonText(true, "Сохранение...");
+  popupEditProfile.setSubmitButtonText("Сохранение...");
   api
     .editProfile(newUserInfo)
     .then((data) => {
@@ -141,7 +138,7 @@ function handleProfileFormSubmit(data) {
 const galleryCards = new Section(
   {
     renderer: (item) => {
-      galleryCards.addItem(generateNewCard(item));
+      galleryCards.addInitialCards(generateNewCard(item));
     },
   },
   gallery
@@ -152,7 +149,7 @@ const galleryCards = new Section(
 function generateNewCard(card) {
   const newCard = new Card(card, userId, cardTemplate, {
     handleCardClick: (cardData) => popupImage.open(cardData),
-    handleDelete: () => openConfirmationPopup(newCard),
+    handleDelete: (id) => openConfirmationPopup(id, newCard),
     handleLikeClick: (evt, id, card) => handleLike(evt, id, card),
   });
   const cardElement = newCard.generateCard();
@@ -191,7 +188,7 @@ function handleCardFormSubmit(data) {
     newCardName: data.name,
     newCardLink: data.link,
   };
-  popupAddCard.setSubmitButtonText(true, "Сохранение...");
+  popupAddCard.setSubmitButtonText("Сохранение...");
   api
     .addNewCard(newCardData)
     .then((data) => {
@@ -217,7 +214,7 @@ cardFormOpenButton.addEventListener("click", () => {
 /*открыть попап редактирование фото*/
 
 function handleAvatarFormSubmit(avatar) {
-  popupEditPhoto.setSubmitButtonText(true, "Сохранение...");
+  popupEditPhoto.setSubmitButtonText("Сохранение...");
   api
     .setNewPhoto(avatar.link)
     .then((response) => {
@@ -239,24 +236,21 @@ profilePhoto.addEventListener("click", () => {
 
 /*обработчик удаления карточки*/
 
-function openConfirmationPopup(card) {
+function openConfirmationPopup(id, card) {
   popupConfirm.open();
   popupConfirm.setCallback(() => {
-    popupConfirm.setSubmitButtonText(true, "Удаление...");
-  api
-    .deleteCard(card._cardId)
-    .then(() => {
-      card.deleteCard();
-      popupConfirm.close();
-    })
-    .catch((error) => {
-      console.log(error);
-    })
-    .finally(() => {
-      popupConfirm.close();
-    })
-    .finally(() => {
-      popupConfirm.setSubmitButtonText("Удалить");
-    });
-  })
+    popupConfirm.setSubmitButtonText("Удаление...");
+    api
+      .deleteCard(id)
+      .then(() => {
+        card.deleteCard();
+        popupConfirm.close();
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      .finally(() => {
+        popupConfirm.setSubmitButtonText("Удалить");
+      });
+  });
 }

@@ -10,6 +10,10 @@ export class Section {
     items.forEach((item) => this._renderer(item));
   }
 
+  addInitialCards(element) {
+    this._container.append(element);
+  }
+
   /*добавить элементы в контейнер*/
 
   addItem(element) {
